@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude for Business — Course Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#17242d;
+    --ink-soft:#41525e;
+    --paper:#f3f5f4;
+    --card:#ffffff;
+    --line:#d8dedd;
+    --accent:#e8a13c;
+    --accent-deep:#b97817;
+    --teal:#237e70;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,sans-serif;
+    font-size:16px;
+    line-height:1.6;
+  }
+  .wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+
+  /* ---------- header ---------- */
+  header{
+    border-bottom:1px solid var(--line);
+    background:var(--card);
+  }
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent-deep);
+  }
+  header .wrap{padding:56px 24px 44px}
+  h1{
+    font-family:"Archivo",sans-serif;
+    font-variation-settings:"wdth" 118;
+    font-weight:850;
+    font-size:clamp(34px,5.4vw,58px);
+    line-height:1.03;
+    letter-spacing:-.015em;
+    margin:14px 0 16px;
+  }
+  h1 .thin{font-weight:450;font-variation-settings:"wdth" 100;color:var(--ink-soft)}
+  .lede{max-width:640px;color:var(--ink-soft);font-size:17px}
+
+  /* ---------- brief chips ---------- */
+  .brief{padding:26px 0 8px}
+  .brief h2{font-size:13px;font-family:"IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{
+    font-size:13.5px;font-weight:500;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:6px 14px;
+  }
+  .chip b{color:var(--teal);font-weight:600}
+
+  /* ---------- sections ---------- */
+  section{padding:44px 0}
+  .sec-title{
+    font-family:"Archivo",sans-serif;
+    font-variation-settings:"wdth" 112;
+    font-weight:750;
+    font-size:clamp(24px,3.4vw,32px);
+    letter-spacing:-.01em;
+    margin-bottom:6px;
+  }
+  .sec-sub{color:var(--ink-soft);margin-bottom:26px;max-width:660px}
+
+  /* ---------- track cards ---------- */
+  .tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .track{
+    text-align:left;
+    background:var(--card);
+    border:1.5px solid var(--line);
+    border-radius:var(--radius);
+    padding:22px 20px 18px;
+    cursor:pointer;
+    font:inherit;color:inherit;
+    transition:border-color .15s, box-shadow .15s, transform .15s;
+    position:relative;
+  }
+  .track:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(23,36,45,.08)}
+  .track:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+  .track[aria-pressed="true"]{
+    border-color:var(--ink);
+    box-shadow:0 8px 22px rgba(23,36,45,.12);
+  }
+  .track[aria-pressed="true"]::after{
+    content:"Selected";
+    position:absolute;top:14px;right:14px;
+    font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    background:var(--ink);color:var(--paper);
+    padding:3px 9px;border-radius:999px;
+  }
+  .track .code{
+    font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.12em;
+    color:var(--accent-deep);text-transform:uppercase;
+  }
+  .track h3{
+    font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 110;
+    font-weight:800;font-size:21px;margin:8px 0 4px;
+  }
+  .track .meta{
+    font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--teal);margin-bottom:10px;
+  }
+  .track p{font-size:14.5px;color:var(--ink-soft)}
+
+  /* ---------- syllabus ---------- */
+  .syllabus{
+    margin-top:28px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:30px clamp(20px,4vw,40px);
+  }
+  .syllabus-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 18px;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:6px}
+  .syllabus-head h3{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 110;font-weight:800;font-size:24px}
+  .syllabus-head .tag{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--teal)}
+  .session{
+    display:grid;grid-template-columns:74px 1fr;gap:18px;
+    padding:18px 0;border-bottom:1px dashed var(--line);
+  }
+  .session:last-child{border-bottom:none}
+  .s-code{
+    font-family:"IBM Plex Mono",monospace;font-size:14px;font-weight:500;
+    color:var(--accent-deep);padding-top:2px;
+  }
+  .session h4{font-size:16.5px;font-weight:600;margin-bottom:3px}
+  .session p{font-size:14.5px;color:var(--ink-soft)}
+  .session .module-tag{
+    display:inline-block;margin-left:8px;vertical-align:1px;
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+    background:#f8ecd7;color:var(--accent-deep);
+    padding:2px 8px;border-radius:999px;
+  }
+  .session .module-tag.lab{background:#e2efec;color:var(--teal)}
+
+  /* ---------- comparison table ---------- */
+  .table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--card)}
+  table{border-collapse:collapse;width:100%;min-width:640px;font-size:14.5px}
+  th,td{padding:13px 18px;text-align:left;border-bottom:1px solid var(--line)}
+  thead th{
+    font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ink-soft);background:#fafbfa;
+  }
+  tbody tr:last-child td{border-bottom:none}
+  td:first-child{font-weight:600;white-space:nowrap}
+  .yes{color:var(--teal);font-weight:600}
+  .no{color:#a8b2b0}
+
+  /* ---------- prerequisites + choose ---------- */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;
+  }
+  .panel h3{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 110;font-weight:750;font-size:18px;margin-bottom:10px}
+  .panel ul{list-style:none}
+  .panel li{padding:7px 0 7px 24px;position:relative;font-size:14.5px;color:var(--ink-soft)}
+  .panel li::before{content:"—";position:absolute;left:0;color:var(--accent)}
+  .panel li b{color:var(--ink)}
+
+  .choose{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .choose .panel{border-top:4px solid var(--accent)}
+  .choose .panel .code{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.12em;color:var(--accent-deep);text-transform:uppercase}
+  .choose .panel h3{margin-top:6px}
+  .choose .panel p{font-size:14.5px;color:var(--ink-soft)}
+
+  /* ---------- use cases ---------- */
+  .usecases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .uc{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px 20px;
+  }
+  .uc .code{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;color:var(--accent-deep);text-transform:uppercase}
+  .uc h3{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 110;font-weight:750;font-size:17px;margin:6px 0 8px}
+  .uc ul{list-style:none}
+  .uc li{padding:4px 0 4px 20px;position:relative;font-size:13.5px;color:var(--ink-soft)}
+  .uc li::before{content:"·";position:absolute;left:4px;color:var(--accent);font-weight:700}
+
+  footer{
+    border-top:1px solid var(--line);
+    background:var(--card);
+    margin-top:20px;
+  }
+  footer .wrap{padding:34px 24px;display:flex;flex-wrap:wrap;gap:12px 30px;justify-content:space-between;align-items:center}
+  footer p{font-size:14px;color:var(--ink-soft)}
+  footer .mono{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-deep)}
+
+  @media (max-width:820px){
+    .tracks,.choose{grid-template-columns:1fr}
+    .usecases{grid-template-columns:1fr}
+    .cols{grid-template-columns:1fr}
+    .session{grid-template-columns:56px 1fr;gap:12px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Course proposal · draft for review</div>
+    <h1>Claude for Business<br><span class="thin">hire your first AI employee</span></h1>
+    <p class="lede">A hands-on program for entrepreneurs and managers who want more than a chatbot: an AI that clears the inbox, preps the meetings, writes the proposals and crunches the numbers — like a talented employee who never sleeps. No coding, ever.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="brief">
+    <h2>Who this is for</h2>
+    <div class="chips">
+      <span class="chip"><b>Entrepreneurs, managers, business people</b></span>
+      <span class="chip">No coding background — <b>and no coding taught</b></span>
+      <span class="chip">Goal: <b>maximize Claude's abilities</b></span>
+      <span class="chip"><b>AI assistance</b> for daily work</span>
+      <span class="chip">Lots of <b>real use cases</b></span>
+      <span class="chip"><b>Business &amp; time management</b> built in</span>
+      <span class="chip">Ends with a <b>personal project</b></span>
+      <span class="chip"><b>10–12 meetings</b></span>
+    </div>
+  </div>
+
+  <section id="options">
+    <h2 class="sec-title">Boost your business productivity in 10–12 meetings with Claude</h2>
+    <p class="sec-sub">Three genuinely different programs — same foundation, different battlefield. Every flavor includes the <b>Business Lab</b>. Click a flavor to see its full syllabus below.</p>
+
+    <div class="tracks" role="group" aria-label="Course flavor options">
+      <button class="track" data-track="a" aria-pressed="false">
+        <span class="code">Flavor A · Focus: your workday</span>
+        <h3>Your AI Assistant</h3>
+        <div class="meta">10 meetings · personal productivity</div>
+        <p>All about <b>you</b>: inbox zero, meetings that run themselves, a week of writing done in an afternoon, and a chief of staff managing your calendar.</p>
+      </button>
+      <button class="track" data-track="b" aria-pressed="true">
+        <span class="code">Flavor B · Focus: your company</span>
+        <h3>Your AI Employee</h3>
+        <div class="meta">12 meetings · the whole business</div>
+        <p>Claude joins the <b>company</b>: customer communication, managing and hiring workers, company numbers, market research — an AI on the org chart.</p>
+      </button>
+      <button class="track" data-track="c" aria-pressed="false">
+        <span class="code">Flavor C · Focus: your systems</span>
+        <h3>Business on Autopilot</h3>
+        <div class="meta">12 meetings · 4-meeting automation track</div>
+        <p>Assistant skills fast, then <b>systems</b>: four meetings of no-code n8n automation, so emails get answered and reports get drafted at 2 AM.</p>
+      </button>
+    </div>
+
+    <div class="syllabus" id="syllabus" aria-live="polite"></div>
+  </section>
+
+  <section id="usecases">
+    <h2 class="sec-title">Use cases that fit every business</h2>
+    <p class="sec-sub">These aren't extra sessions — they're the raw material of the whole course. Whatever the participant's industry, these workflows apply from day one.</p>
+    <div class="usecases">
+      <div class="uc">
+        <span class="code">People</span>
+        <h3>Managing your team</h3>
+        <ul>
+          <li>Write job descriptions and screen CVs faster</li>
+          <li>Prepare 1-on-1s, feedback and performance reviews</li>
+          <li>Build onboarding plans for new hires</li>
+          <li>Draft the hard conversations before you have them</li>
+        </ul>
+      </div>
+      <div class="uc">
+        <span class="code">Meetings</span>
+        <h3>Meetings that end with action</h3>
+        <ul>
+          <li>Build agendas in minutes, not hours</li>
+          <li>Turn transcripts and notes into summaries</li>
+          <li>Extract action items and owners automatically</li>
+          <li>Draft the follow-up email before you leave the room</li>
+        </ul>
+      </div>
+      <div class="uc">
+        <span class="code">Customers</span>
+        <h3>Customer communication</h3>
+        <ul>
+          <li>Answer complaints professionally, in your tone</li>
+          <li>Produce quotes and proposals from bullet points</li>
+          <li>Build an FAQ from your real customer questions</li>
+          <li>Adapt one message for email, WhatsApp and phone script</li>
+        </ul>
+      </div>
+      <div class="uc">
+        <span class="code">Marketing &amp; Sales</span>
+        <h3>Getting the word out</h3>
+        <ul>
+          <li>Social posts, campaigns and landing-page copy</li>
+          <li>Research competitors and market positioning</li>
+          <li>Sharpen sales pitches and objection handling</li>
+          <li>One idea → a month of content in one sitting</li>
+        </ul>
+      </div>
+      <div class="uc">
+        <span class="code">Operations</span>
+        <h3>Documents and procedures</h3>
+        <ul>
+          <li>Turn "how we do things" into written SOPs and checklists</li>
+          <li>Draft policies, agreements and internal docs</li>
+          <li>Summarize and translate long documents</li>
+          <li>Prepare for contract reviews with key-point extraction</li>
+        </ul>
+      </div>
+      <div class="uc">
+        <span class="code">Numbers &amp; Decisions</span>
+        <h3>Understanding your business</h3>
+        <ul>
+          <li>Ask questions about spreadsheets in plain language</li>
+          <li>Summarize budgets and reports for quick review</li>
+          <li>Compare suppliers, tools and options side by side</li>
+          <li>Structured pros-and-cons before big decisions</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="compare">
+    <h2 class="sec-title">Side by side</h2>
+    <p class="sec-sub">The practical differences at a glance.</p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>&nbsp;</th><th>A · AI Assistant</th><th>B · AI Employee</th><th>C · Autopilot</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Focus</td><td>Your personal workday</td><td>The whole company</td><td>Systems that run without you</td></tr>
+          <tr><td>What you get</td><td>A sharp personal assistant for daily work</td><td>An AI team member across every department</td><td>An AI assistant + automations running 24/7</td></tr>
+          <tr><td>Meetings</td><td>10</td><td>12</td><td>12</td></tr>
+          <tr><td>Total hours (approx.)</td><td>25</td><td>30</td><td>30</td></tr>
+          <tr><td>Email &amp; meetings mastery</td><td class="yes">2 dedicated meetings</td><td class="yes">1 dedicated meeting</td><td class="yes">1 dedicated meeting</td></tr>
+          <tr><td>Customer communication &amp; marketing</td><td>Touched on</td><td class="yes">2 dedicated meetings</td><td>Touched on</td></tr>
+          <tr><td>Hiring &amp; managing workers</td><td class="no">—</td><td class="yes">Dedicated meeting</td><td class="no">—</td></tr>
+          <tr><td>SOPs &amp; company procedures</td><td class="no">—</td><td class="yes">Dedicated meeting</td><td>Inside automation track</td></tr>
+          <tr><td>n8n automation (no-code)</td><td class="no">No</td><td class="no">No</td><td class="yes">4-meeting track</td></tr>
+          <tr><td>Business Lab (your own company)</td><td class="yes">2 meetings</td><td class="yes">2 meetings</td><td class="yes">2 meetings</td></tr>
+          <tr><td>Demo day (personal project)</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes — a working automation</td></tr>
+          <tr><td>Recommended Claude plan</td><td>Free for meeting 1, Pro after</td><td>Pro recommended</td><td>Pro recommended</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="prereq">
+    <h2 class="sec-title">Prerequisites</h2>
+    <p class="sec-sub">Deliberately minimal — this course meets people where they are.</p>
+    <div class="cols">
+      <div class="panel">
+        <h3>What participants need</h3>
+        <ul>
+          <li><b>No coding background.</b> Nothing in the program requires technical skills — including the n8n module, which is fully visual.</li>
+          <li>A laptop and a <b>Claude account</b> (claude.ai).</li>
+          <li>Basic comfort with a browser, email and office documents.</li>
+          <li>2–3 of <b>their own real business tasks</b> to bring in — the course runs on participants' actual work.</li>
+          <li>For the <b>Autopilot flavor</b> only: a free <b>n8n</b> account (set up together in class).</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Free plan or paid?</h3>
+        <ul>
+          <li>The <b>free plan is enough for meeting 1</b> — nobody has to pay before they're convinced.</li>
+          <li>From meeting 2 onward, <b>Claude Pro is strongly recommended</b>: higher usage limits, Projects, and larger file uploads — all used heavily in class.</li>
+          <li>A common model: the organization covers Pro for the duration of the course, then decides based on adoption.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="choose">
+    <h2 class="sec-title">How to choose</h2>
+    <p class="sec-sub">A simple decision rule for each option.</p>
+    <div class="choose">
+      <div class="panel">
+        <span class="code">Pick AI Assistant if…</span>
+        <h3>The pain is personal overload</h3>
+        <p>Participants are drowning in email, meetings and writing. Ten meetings focused entirely on their own workday — two of them just on inbox and meetings.</p>
+      </div>
+      <div class="panel">
+        <span class="code">Pick AI Employee if…</span>
+        <h3>They run people and customers</h3>
+        <p>The only flavor with dedicated meetings on managing workers, customer communication, marketing and company SOPs — Claude across every department, not just one desk.</p>
+      </div>
+      <div class="panel">
+        <span class="code">Pick Autopilot if…</span>
+        <h3>The same work repeats every week</h3>
+        <p>Four full meetings of no-code automation. If intake, reports and follow-ups repeat, this flavor ends with a real system running while everyone sleeps.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <p><span class="mono">Next step</span><br>Choose a track and we'll turn it into a detailed syllabus with dates, exercises and materials.</p>
+    <p>Draft v2 · July 2026</p>
+  </div>
+</footer>
+
+<script>
+const TRACKS = {
+  a: {
+    name: "Your AI Assistant",
+    tag: "10 meetings · focus: your personal workday",
+    sessions: [
+      ["M01","Day one: meet your new AI hire","What Claude can actually do for a business, plans and setup, the delegation mindset. Everyone clears a real task from their plate before the first meeting ends."],
+      ["M02","The briefing skill: how to delegate to Claude","Great managers give great briefs. Clear instructions, context, examples and tone — the difference between a useless chatbot and a sharp assistant."],
+      ["M03","Advanced delegation: complex tasks, executive-ready output","Roles, step-by-step assignments, output formats, iterating to perfection — and turning your best briefs into reusable templates."],
+      ["M04","Inbox zero: email with Claude","Triage, replies in your voice, chasing what's overdue, saying no gracefully. The single biggest time-saver for most managers."],
+      ["M05","Meetings that run themselves","Agendas in minutes, transcript and notes summaries, action items with owners, follow-up emails drafted before you leave the room."],
+      ["M06","Your writing department","Proposals from bullet points, presentations, marketing copy, tough messages — a week of writing done in an afternoon."],
+      ["M07","Your analyst & researcher","Drop in spreadsheets and PDFs, get insights and executive summaries. Market and competitor research on demand."],
+      ["M08","Your chief of staff: planning your week","Claude Projects with your standing context, weekly planning, prioritization, delegation habits — a personal operating system that runs the routine."],
+      ["M09","Business Lab I: your workday, rebuilt","One-on-one style deep dive: mapping each participant's actual week and rebuilding its heaviest tasks around Claude.","lab"],
+      ["M10","Business Lab II + demo day","Refining the workflows with instructor feedback, then each participant demos their new AI-powered workday.","lab"]
+    ]
+  },
+  b: {
+    name: "Your AI Employee",
+    tag: "12 meetings · focus: the whole company",
+    sessions: [
+      ["M01","Day one: meet your new AI hire","What Claude can actually do for a business, plans and setup, the delegation mindset. Everyone clears a real task from their plate before the first meeting ends."],
+      ["M02","The briefing skill: how to delegate to Claude","Great managers give great briefs. Clear instructions, context, examples and tone — the difference between a useless chatbot and a sharp assistant."],
+      ["M03","Onboarding Claude: teach it your company","Claude Projects loaded with your company knowledge, products, tone and standing instructions — so it answers like an insider from week one."],
+      ["M04","Your front desk: customer communication","Complaint replies in your brand voice, quotes and proposals, FAQs from real customer questions, one message adapted for email, WhatsApp and phone."],
+      ["M05","Your marketing department","Social posts, campaigns, landing-page copy, competitor positioning — one idea turned into a month of content."],
+      ["M06","Your HR manager: hiring and managing workers","Job descriptions, CV screening, onboarding plans, 1-on-1 and performance-review prep, drafting the hard conversations before you have them."],
+      ["M07","Your analyst: the company numbers","Budgets, sales data and reports in plain language — insights, charts and executive summaries for faster decisions."],
+      ["M08","Your researcher: markets and big decisions","Market research, vendor comparisons, due-diligence style summaries, structured pros-and-cons before you commit."],
+      ["M09","Your operations manager: SOPs and procedures","Turning 'how we do things here' into written SOPs, checklists and policies — so the business runs the same without you in the room."],
+      ["M10","Your chief of staff: email, meetings and time","Inbox triage, meeting prep and summaries, weekly planning — the personal layer on top of the company layer."],
+      ["M11","Business Lab I: Claude on the org chart","Department-by-department deep dive into each participant's company, building Claude workflows where they pay off most.","lab"],
+      ["M12","Business Lab II + demo day","Refining with instructor feedback, cross-pollinating between businesses, then each participant demos their AI employee at work.","lab"]
+    ]
+  },
+  c: {
+    name: "Business on Autopilot",
+    tag: "12 meetings · focus: systems that run without you",
+    sessions: [
+      ["M01","Day one: meet your new AI hire","What Claude can actually do for a business, plans and setup, the delegation mindset. Everyone clears a real task from their plate before the first meeting ends."],
+      ["M02","The briefing skill: how to delegate to Claude","Great managers give great briefs. Clear instructions, context, examples and tone — the foundation everything else builds on."],
+      ["M03","The essentials power session: writing and documents","Emails in your voice, proposals from bullet points, presentations — the everyday assistant skills, condensed."],
+      ["M04","Your analyst & researcher","Spreadsheets, PDFs and reports in — insights and executive summaries out, plus market research on demand."],
+      ["M05","Onboarding Claude: teach it your company","Claude Projects with your company knowledge and standing instructions — the brain your automations will run on."],
+      ["M06","Your chief of staff: email, meetings and time","Inbox triage, meeting summaries, weekly planning — and spotting which of these repeat often enough to automate."],
+      ["M07","Automation thinking: map your repeating work","Which processes are worth automating? Mapping intake, reporting, follow-ups and approvals across each participant's business.","n8n"],
+      ["M08","Meet n8n: your first automation, zero code","How n8n works (fully visual). First live workflow built together in class — a real trigger, a real result.","n8n"],
+      ["M09","Claude + n8n: work that happens at 2 AM","Connecting Claude to incoming emails, forms and schedules: auto-drafted replies, auto-summarized reports, auto-sorted leads.","n8n"],
+      ["M10","Advanced autopilot: multi-step workflows","Chaining steps, connecting the tools you already use (sheets, forms, messaging), adding human approval where it matters.","n8n"],
+      ["M11","Business Lab I: automating your business","Deep dive into each participant's company: building the one automation that saves the most hours per week.","lab"],
+      ["M12","Business Lab II + autopilot demo day","Polishing with instructor feedback, then each participant demos a system that works while they sleep.","lab"]
+    ]
+  }
+};
+
+const syllabus = document.getElementById("syllabus");
+const buttons = document.querySelectorAll(".track");
+
+function render(key){
+  const t = TRACKS[key];
+  let html = `<div class="syllabus-head"><h3>${t.name}</h3><span class="tag">${t.tag}</span></div>`;
+  for (const s of t.sessions){
+    let mod = "";
+    if (s[3] === "n8n") mod = `<span class="module-tag">n8n module</span>`;
+    if (s[3] === "lab") mod = `<span class="module-tag lab">business lab</span>`;
+    html += `<div class="session">
+      <div class="s-code">${s[0]}</div>
+      <div><h4>${s[1]}${mod}</h4><p>${s[2]}</p></div>
+    </div>`;
+  }
+  syllabus.innerHTML = html;
+}
+
+buttons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    buttons.forEach(b => b.setAttribute("aria-pressed","false"));
+    btn.setAttribute("aria-pressed","true");
+    render(btn.dataset.track);
+  });
+});
+
+render("b");
+</script>
+
+</body>
+</html>

@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude for Business — Detailed Session Plans</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#17242d;
+    --ink-soft:#41525e;
+    --paper:#f3f5f4;
+    --card:#ffffff;
+    --line:#d8dedd;
+    --accent:#e8a13c;
+    --accent-deep:#b97817;
+    --teal:#237e70;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,sans-serif;
+    font-size:16px;
+    line-height:1.6;
+  }
+  .wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+
+  header{border-bottom:1px solid var(--line);background:var(--card)}
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--accent-deep);
+  }
+  header .wrap{padding:56px 24px 44px}
+  h1{
+    font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 118;
+    font-weight:850;font-size:clamp(34px,5.4vw,58px);
+    line-height:1.03;letter-spacing:-.015em;margin:14px 0 16px;
+  }
+  h1 .thin{font-weight:450;font-variation-settings:"wdth" 100;color:var(--ink-soft)}
+  .lede{max-width:640px;color:var(--ink-soft);font-size:17px}
+
+  section{padding:44px 0}
+  .sec-title{
+    font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 112;
+    font-weight:750;font-size:clamp(24px,3.4vw,32px);
+    letter-spacing:-.01em;margin-bottom:6px;
+  }
+  .sec-sub{color:var(--ink-soft);margin-bottom:26px;max-width:680px}
+
+  .tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .track{
+    text-align:left;background:var(--card);
+    border:1.5px solid var(--line);border-radius:var(--radius);
+    padding:22px 20px 18px;cursor:pointer;font:inherit;color:inherit;
+    transition:border-color .15s, box-shadow .15s, transform .15s;position:relative;
+  }
+  .track:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(23,36,45,.08)}
+  .track:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+  .track[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 8px 22px rgba(23,36,45,.12)}
+  .track[aria-pressed="true"]::after{
+    content:"Selected";position:absolute;top:14px;right:14px;
+    font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    background:var(--ink);color:var(--paper);padding:3px 9px;border-radius:999px;
+  }
+  .track .code{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.1em;color:var(--accent-deep);text-transform:uppercase}
+  .track h3{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 110;font-weight:800;font-size:20px;margin:8px 0 4px}
+  .track .meta{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--teal);margin-bottom:10px}
+  .track p{font-size:14.5px;color:var(--ink-soft)}
+
+  .syllabus{
+    margin-top:28px;background:var(--card);
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:30px clamp(20px,4vw,40px);
+  }
+  .syllabus-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 18px;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:6px}
+  .syllabus-head h3{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 110;font-weight:800;font-size:24px}
+  .syllabus-head .tag{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--teal)}
+
+  .session{
+    display:grid;grid-template-columns:74px 1fr;gap:18px;
+    padding:26px 0;border-bottom:1px dashed var(--line);
+  }
+  .session:last-child{border-bottom:none}
+  .s-code{font-family:"IBM Plex Mono",monospace;font-size:14px;font-weight:500;color:var(--accent-deep);padding-top:2px}
+  .session h4{font-size:18px;font-weight:600;margin-bottom:3px}
+  .session .d{font-size:14.5px;color:var(--ink-soft)}
+  .session .module-tag{
+    display:inline-block;margin-left:8px;vertical-align:1px;
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+    background:#f8ecd7;color:var(--accent-deep);padding:2px 8px;border-radius:999px;
+  }
+  .session .module-tag.lab{background:#e2efec;color:var(--teal)}
+
+  /* "in this meeting" flow strip */
+  .flow{
+    margin:12px 0 4px;font-size:13.5px;color:var(--ink);
+    background:#eef4f2;border-left:3px solid var(--teal);border-radius:0 9px 9px 0;
+    padding:9px 14px;
+  }
+  .flow b{
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--teal);margin-right:8px;
+  }
+
+  /* topic with nested sub-topics */
+  .topic{margin-top:16px}
+  .topic-title{
+    font-size:15px;font-weight:600;color:var(--ink);
+    padding-left:20px;position:relative;
+  }
+  .topic-title::before{content:"→";position:absolute;left:2px;top:1px;color:var(--teal);font-size:13px}
+  .subs{list-style:none;margin:5px 0 0 20px}
+  .subs li{font-size:13.5px;color:var(--ink-soft);padding:2.5px 0 2.5px 18px;position:relative}
+  .subs li::before{content:"·";position:absolute;left:5px;color:var(--accent);font-weight:700}
+
+  .exercise{
+    margin-top:16px;font-size:13.5px;color:var(--ink);
+    background:#fdf6e9;border:1px dashed var(--accent);border-radius:9px;
+    padding:9px 12px;
+  }
+  .exercise b{
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--accent-deep);margin-right:8px;
+  }
+  .takeaway{
+    margin-top:8px;font-size:13.5px;color:var(--ink);
+    background:#e9f2f0;border:1px dashed var(--teal);border-radius:9px;
+    padding:9px 12px;
+  }
+  .takeaway b{
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--teal);margin-right:8px;
+  }
+
+  footer{border-top:1px solid var(--line);background:var(--card);margin-top:20px}
+  footer .wrap{padding:34px 24px;display:flex;flex-wrap:wrap;gap:12px 30px;justify-content:space-between;align-items:center}
+  footer p{font-size:14px;color:var(--ink-soft)}
+  footer .mono{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-deep)}
+
+  @media (max-width:820px){
+    .tracks{grid-template-columns:1fr}
+    .session{grid-template-columns:56px 1fr;gap:12px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Detailed syllabus · companion to course proposal v2.1</div>
+    <h1>Claude for Business<br><span class="thin">the meeting-by-meeting plan</span></h1>
+    <p class="lede">The full session plans for all three course flavors. Every meeting is broken down topic by topic — what gets taught, what gets demoed, what participants build with their own hands, and what they walk out with. Click a flavor to open its detailed day plan.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section id="plans">
+    <h2 class="sec-title">Pick a flavor to open its detailed day plan</h2>
+    <p class="sec-sub">Same design, one level deeper: each meeting's topics are now expanded into their own sub-topics, plus a note on how the meeting itself runs. Every meeting follows the same rhythm — <b>live demo → teach → build on your own business → wrap-up</b>.</p>
+
+    <div class="tracks" role="group" aria-label="Course flavor options">
+      <button class="track" data-track="a" aria-pressed="false">
+        <span class="code">Flavor A · Focus: your workday</span>
+        <h3>Your AI Assistant</h3>
+        <div class="meta">10 meetings · personal productivity</div>
+        <p>All about <b>you</b>: inbox zero, meetings that run themselves, a week of writing done in an afternoon, and a chief of staff managing your calendar.</p>
+      </button>
+      <button class="track" data-track="b" aria-pressed="true">
+        <span class="code">Flavor B · Focus: your company</span>
+        <h3>Building Your AI Company with Claude</h3>
+        <div class="meta">12 meetings · every department staffed</div>
+        <p>Meeting by meeting you staff a <b>whole company</b> with AI: front desk, marketing, HR, analyst, operations, a tools department and an agent workforce — and present the company you built on the final day.</p>
+      </button>
+      <button class="track" data-track="c" aria-pressed="false">
+        <span class="code">Flavor C · Focus: your systems</span>
+        <h3>Business on Autopilot</h3>
+        <div class="meta">12 meetings · 4-meeting automation track</div>
+        <p>Assistant skills fast, then <b>systems</b>: four meetings of no-code n8n automation and AI agents, so emails get answered and reports get drafted at 2 AM.</p>
+      </button>
+    </div>
+
+    <div class="syllabus" id="syllabus" aria-live="polite"></div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <p><span class="mono">Next step</span><br>Approve a flavor and this plan becomes the working syllabus — dates, materials and homework attached.</p>
+    <p>Detailed plan v1.0 · July 2026</p>
+  </div>
+</footer>
+
+<script>
+// Session format:
+// {c: code, t: title, d: one-line description, f: how the meeting runs,
+//  a: [{t: topic, s: [sub-topics]}], x: hands-on exercise, w: what you leave with, m: module tag}
+const TRACKS = {
+  a: {
+    name: "Your AI Assistant",
+    tag: "10 meetings · focus: your personal workday",
+    sessions: [
+      {c:"M01", t:"Day one: meet your new AI hire",
+       d:"What Claude can actually do for a business, and the delegation mindset.",
+       f:"We open with a 20-minute live show: real business tasks solved in front of the class. Then everyone gets set up, and the last third of the meeting is hands-on — each participant clears one real task from their own plate before leaving.",
+       a:[
+        {t:"What Claude is — and what it can and can't do",
+         s:["A 5-minute plain-language explanation of how an AI assistant works — no jargon, no math","Where Claude shines: writing, analysis, research, structuring messy information","Where it fails: made-up facts, stale knowledge, tasks that need your judgment","The golden rule of the whole course: Claude drafts, you decide"]},
+        {t:"Plans, setup, and a guided tour",
+         s:["Creating an account together — free plan is enough for today","The interface tour: chats, file uploads, artifacts, web search, research mode","Free vs. Pro: what changes and when upgrading pays for itself","Phone + desktop: having your assistant in your pocket"]},
+        {t:"The delegation mindset: treat it like a talented new hire",
+         s:["Why 'talking to a search engine' is the #1 beginner mistake","The new-hire frame: brilliant, fast, hard-working — but knows nothing about your business yet","What good delegation sounds like vs. what lazy delegation sounds like","Setting expectations: iteration is normal, first drafts are drafts"]},
+        {t:"Live demos on real business tasks",
+         s:["A complaint email answered in the owner's tone — in 90 seconds","A messy voice-note turned into a clean client proposal","A PDF price list interrogated with plain questions","A working mini-calculator built live, just by describing it (teaser for later)"]}
+       ],
+       x:"Everyone clears one real task from their plate before the meeting ends.",
+       w:"A working Claude account, your first completed real task, and the delegation frame you'll use all course."},
+
+      {c:"M02", t:"The briefing skill: how to delegate to Claude",
+       d:"Great managers give great briefs — this is the skill everything builds on.",
+       f:"Short teach, long practice. We dissect one great brief and one terrible one, then spend most of the meeting rewriting real prompts from participants' own work, live, with the class scoring the outputs.",
+       a:[
+        {t:"Anatomy of a great brief: goal, context, format, tone",
+         s:["Goal: what does 'done' look like? One sentence before you type anything","Context: who's it for, what happened before, what constraints exist","Format: email? table? one-pager? bullet list? Say it explicitly","Tone: formal, warm, blunt, playful — and how to describe your voice"]},
+        {t:"Showing examples instead of explaining",
+         s:["The shortcut: paste an email you loved and say 'like this'","Before/after pairs: teaching Claude your style in one message","Using your own past documents as style references","When one good example beats three paragraphs of instructions"]},
+        {t:"Iterating: pushing back until the output is right",
+         s:["The follow-up vocabulary: shorter, warmer, more direct, less salesy","Asking Claude to critique its own draft before you do","Version discipline: 'give me 3 options' vs. endless single tweaks","Knowing when to stop polishing and ship"]},
+        {t:"The five most common briefing mistakes",
+         s:["Too vague ('write something about our company')","No audience ('who is this for?' changes everything)","Burying the ask in a wall of text","Accepting draft #1 without pushing back","Restarting a new chat instead of iterating in the same one"]}
+       ],
+       x:"Take a bad prompt and rewrite it into a brief that produces a client-ready result.",
+       w:"A personal briefing checklist card you'll reuse in every meeting from now on."},
+
+      {c:"M03", t:"Advanced delegation: executive-ready output",
+       d:"From one-off chats to a personal library of reliable, reusable assignments.",
+       f:"We level up from single tasks to systems: roles, multi-step assignments, and templates. The second half is a build session — everyone leaves with a personal template library started.",
+       a:[
+        {t:"Roles and personas: Claude as lawyer, marketer, coach",
+         s:["Why 'act as an experienced CFO' changes the quality of the answer","Building a persona: expertise, perspective, what to be critical about","The devil's advocate: having Claude argue against your plan","Panel mode: three personas debating your decision"]},
+        {t:"Multi-step assignments and structured output",
+         s:["Chaining: research → outline → draft → polish in one conversation","Asking for tables, comparison matrices and scored rankings","Structured documents: headings, exec summary first, appendix last","Setting length and depth explicitly ('300 words, no fluff')"]},
+        {t:"Turning your best briefs into reusable templates",
+         s:["Spotting the tasks you do every single week","Template anatomy: fixed instructions + a blank slot for today's input","Naming and storing templates so you actually find them again","The 30-second workflow: paste template, fill slot, get result"]},
+        {t:"Quality control: verifying and fact-checking output",
+         s:["Where hallucinations happen most: numbers, names, dates, citations","The verify-before-send rule for anything customer-facing","Asking Claude to show its uncertainty and flag weak spots","Using web search to ground answers in current facts"]}
+       ],
+       x:"Build a personal template library: 3 templates you'll actually use every week.",
+       w:"Three battle-tested templates + a persona you'll keep using as your standing advisor."},
+
+      {c:"M04", t:"Inbox zero: email with Claude",
+       d:"The single biggest time-saver for most managers.",
+       f:"A working session disguised as a class. After a 15-minute method demo, participants open their real inboxes and process live — the instructor circulates and unblocks. We end by comparing before/after inbox counts.",
+       a:[
+        {t:"Triage: what to answer, delegate, or ignore",
+         s:["The 4-bucket system: reply now, reply later, delegate, archive","Pasting a batch of emails and getting a prioritized action list","Spotting the emails that are actually decisions in disguise","The daily 10-minute triage ritual"]},
+        {t:"Replies in your voice — including the delicate ones",
+         s:["Teaching Claude your email voice with 3 past examples","The angry client: acknowledge, own, resolve — without groveling","The pushy vendor: firm, polite, final","Short replies that don't sound cold"]},
+        {t:"Chasing overdue follow-ups automatically",
+         s:["The follow-up ladder: gentle nudge → direct ask → last call","Drafting all three in advance so chasing takes 30 seconds","Following up without sounding desperate","Tracking who owes you what in one running list"]},
+        {t:"Saying no gracefully",
+         s:["The no-with-alternative: decline the ask, keep the relationship","Saying no to good opportunities (the hardest kind)","Boundary templates: scope creep, discount requests, 'quick favors'","When not to reply at all"]}
+       ],
+       x:"Process 10 real emails from your own inbox live in class.",
+       w:"An empty(er) inbox, a reply-voice profile, and a triage ritual that takes 10 minutes a day."},
+
+      {c:"M05", t:"Meetings that run themselves",
+       d:"Before, during and after: the whole meeting lifecycle with Claude.",
+       f:"We follow one real meeting through its whole life: prep it, then work from a real transcript participants bring, and finish with the follow-up email drafted before class ends.",
+       a:[
+        {t:"Agendas in minutes from a goal and a participant list",
+         s:["From 'what must be decided' to a timed agenda","Pre-reads: the one-pager that makes the meeting shorter","Anticipating objections: prepping answers before they're asked","The meeting-that-should-be-an-email detector"]},
+        {t:"Summarizing transcripts and messy notes",
+         s:["Uploading recordings, transcripts, or your chaotic handwritten notes","The 3-layer summary: one line, one paragraph, full detail","Pulling out decisions vs. discussions vs. open questions","Summaries for people who weren't in the room"]},
+        {t:"Action items with owners and deadlines",
+         s:["Extracting every commitment made — including the vague ones","Forcing owners and dates onto each item","The accountability table you paste into your task tool","Flagging items nobody actually owned (the silent killers)"]},
+        {t:"The follow-up email, drafted before you leave the room",
+         s:["The 5-minute rule: follow-up sent while memory is fresh","One template: decisions, actions, owners, next meeting","Different versions for attendees vs. stakeholders","Closing the loop on last meeting's items automatically"]}
+       ],
+       x:"Take notes from a real recent meeting → summary + action list + follow-up email.",
+       w:"A complete meeting kit: agenda template, summary prompt, action-item extractor, follow-up template."},
+
+      {c:"M06", t:"Your writing department",
+       d:"A week of writing done in an afternoon.",
+       f:"Production day. Four writing stations — proposals, presentations, marketing, hard messages — and participants rotate through them producing real documents for their own business.",
+       a:[
+        {t:"Proposals and quotes from bullet points",
+         s:["The 5-bullet input that becomes a full proposal","Structure that sells: problem, approach, deliverables, price, next step","Adapting one proposal for three different client types","The cover email that gets the proposal opened"]},
+        {t:"Presentations: outline to slides",
+         s:["From goal to storyline: what's the one thing they must remember?","Slide-by-slide outlines with speaker notes","Turning a document you already have into a deck","Executive version vs. detailed version from the same material"]},
+        {t:"Marketing copy and social posts",
+         s:["One core message, five formats: post, ad, email, landing page, one-liner","Hooks: the first line that stops the scroll","Writing in your brand voice, not 'AI voice'","A week of posts from one topic"]},
+        {t:"The hard messages: complaints, refusals, negotiations",
+         s:["The complaint response that keeps the customer","Negotiation openers and counter-offers, drafted in advance","Delivering bad news: late delivery, price increase, ending a contract","Rehearsing the conversation: Claude plays the other side"]}
+       ],
+       x:"Turn 5 bullet points into a client-ready proposal with a cover email.",
+       w:"A finished proposal, a deck outline, a week of posts and two hard messages — all real, all yours."},
+
+      {c:"M07", t:"Your analyst & researcher",
+       d:"Numbers, documents and markets — answered in plain language.",
+       f:"Everyone brings one real file — a report, a spreadsheet, a contract. After the demo block we go hands-on: interrogate your file, chart it, summarize it, then send a research agent out for market intel.",
+       a:[
+        {t:"Spreadsheets and PDFs: ask questions, get answers",
+         s:["Uploading Excel, CSV and PDF files — what Claude sees","Plain-language questions: 'which product lost money last quarter?'","Cross-checking two documents against each other","Long contracts: key terms, risks and deadlines extracted"]},
+        {t:"Charts and executive summaries from raw data",
+         s:["From raw table to the chart that tells the story","The one-page executive summary: findings, numbers, recommendation","Spotting trends and outliers you'd have missed","Turning analysis into a slide for your next board meeting"]},
+        {t:"Market and competitor research on demand",
+         s:["Structured competitor profiles: offer, pricing, positioning, weakness","Sizing a market without buying a report","Customer-review mining: what people love and hate about competitors","The opportunity matrix: where the gaps are"]},
+        {t:"Claude's agent features: deep research and web browsing",
+         s:["What 'deep research' does: multi-source, cited, autonomous","Writing a research mission brief: scope, sources, deliverable","Reading an agent's report critically: checking the citations","When 10 minutes of agent research replaces a day of googling"]}
+       ],
+       x:"Upload a real report or spreadsheet → executive summary + 3 insights you didn't have.",
+       w:"A real analysis of your own numbers + a cited research report on your market."},
+
+      {c:"M08", t:"Your chief of staff + a taste of vibe coding",
+       d:"A personal operating system — plus your first self-built tool.",
+       f:"Two acts: first we build your standing Project and weekly planning ritual; then the fun part — everyone builds a working personal mini-tool by describing it in plain language. No code shown, none needed.",
+       a:[
+        {t:"Claude Projects: your standing context, always loaded",
+         s:["What a Project is: a workspace where Claude already knows you","Loading your world: role, company, priorities, pet peeves","Standing instructions: 'always answer briefly, always in my tone'","One Project for work, one per big initiative"]},
+        {t:"The weekly planning ritual: priorities, time blocks, delegation",
+         s:["The Sunday 15-minute ritual: dump everything, get a plan back","Top-3 priorities vs. the noise: forcing the cut","Time-blocking a realistic calendar (with buffer!)","The delegation pass: what shouldn't be on your list at all"]},
+        {t:"Vibe coding taste: build a mini-tool by describing it",
+         s:["What vibe coding means: you describe, Claude builds, you refine","Live build: a tracker or calculator from one paragraph of description","Iterating in plain words: 'make it bigger', 'add a total row'","Saving and reusing your tool — it's yours now"]},
+        {t:"Habits that make it stick after the course",
+         s:["The trigger list: 5 moments in your day that should start with Claude","Keeping templates and Projects tidy (5 minutes a week)","The weekly review: what did I still do manually that I shouldn't?","Your personal 'assistant charter' — what's delegated, forever"]}
+       ],
+       x:"Build your weekly planning system + one working personal mini-tool — zero code.",
+       w:"A standing chief-of-staff Project, a weekly ritual, and a tool you built yourself."},
+
+      {c:"M09", t:"Business Lab I: your workday, rebuilt",
+       d:"Deep dive into each participant's actual week.",
+       f:"Pure workshop. No new theory — the instructor works the room 1-on-1 while participants map their real week and build workflows for their heaviest recurring tasks.",
+       a:[
+        {t:"Mapping your real week: where the hours go",
+         s:["The honest audit: everything you touched in the last 7 days","Sorting into: only-me work vs. delegatable-to-Claude work","Estimating hours per recurring task — the eye-opener","Choosing by impact: hours saved × how much you hate it"]},
+        {t:"Picking the 3 heaviest recurring tasks",
+         s:["One communication task, one document task, one analysis task","Defining 'done' for each before building anything","Gathering the raw material: real emails, real files, real examples"]},
+        {t:"Building Claude workflows for each, with instructor guidance",
+         s:["Template + Project + checklist per task","Testing against last week's real inputs","1-on-1 instructor time: unblocking, refining, pushing quality up","Documenting each workflow so it survives contact with Monday"]}
+       ],
+       x:"Leave with 3 working workflows for your own heaviest tasks.",
+       w:"Three documented, tested workflows attacking your three heaviest weekly time sinks.", m:"lab"},
+
+      {c:"M10", t:"Business Lab II + demo day",
+       d:"Polish, then present.",
+       f:"First hour: final refinements with instructor feedback. Second hour: demo day — each participant presents their rebuilt workday to the class, before/after, with live demonstrations.",
+       a:[
+        {t:"Refining lab workflows with instructor feedback",
+         s:["Stress-testing: what happens with a weird input?","Tightening the briefs: cutting words, adding examples","The last-mile polish that makes output client-ready"]},
+        {t:"Cross-pollinating ideas between participants",
+         s:["Speed rounds: each participant shows their best trick in 2 minutes","Stealing shamelessly: adapting a classmate's workflow to your business","The class playbook: everyone's best workflows, shared"]},
+        {t:"Class presentations",
+         s:["The 5-minute format: my week before / my week after / one live demo","Honest numbers: hours saved per week, and where","Group feedback and next steps for each participant"]}
+       ],
+       x:"A 5-minute class presentation: my AI-powered workday, before and after.",
+       w:"A polished personal system, the class playbook, and proof — in hours — that it works.", m:"lab"}
+    ]
+  },
+  b: {
+    name: "Building Your AI Company with Claude",
+    tag: "12 meetings · staff every department with AI · final: present your company",
+    sessions: [
+      {c:"M01", t:"Founding day: your AI company begins",
+       d:"The course-long mission: build a company where every department has an AI employee.",
+       f:"We open with a founding ceremony framing: this course, you're a founder-CEO and Claude is your workforce. A 20-minute live show of Claude doing real business work, then setup, then everyone founds their company on paper — and clears one real task before leaving.",
+       a:[
+        {t:"What Claude can actually do for a business — live demos",
+         s:["A customer complaint answered in brand voice, in 90 seconds","A price-list PDF interrogated with plain questions","A month of social posts generated from one idea","A working mini-tool built live by describing it — the 'wow' moment"]},
+        {t:"Plans, setup, and the delegation mindset",
+         s:["Accounts and interface tour: chats, files, artifacts, research","Free vs. Pro: what the course uses and why Pro pays off from week 2","The new-hire frame: brilliant and tireless, but knows nothing about you yet","The golden rule: Claude drafts every document, you make every decision"]},
+        {t:"The vision: departments staffed by AI, managed by you",
+         s:["The org chart we'll build: HQ, front desk, marketing, HR, analyst, operations, tools, agents","One meeting = one department hired, trained and put to work","How the pieces connect by the end: one company, many AI employees","Preview of the finale: presenting your company on the last day"]},
+        {t:"Choosing your company for the course",
+         s:["Option 1: your real business — every exercise produces real assets","Option 2: a venture you've been meaning to found — the course is your incubator","Defining the basics: what you sell, to whom, what makes you different","Picking the 3 departments that would change your life first"]}
+       ],
+       x:"Found your company: name it, define the departments Claude will staff, clear one real task.",
+       w:"A founded company with an org chart of future AI employees — and your first task already done."},
+
+      {c:"M02", t:"The briefing skill: how to delegate to Claude",
+       d:"Great managers give great briefs — the skill every department runs on.",
+       f:"Short teach, long practice. We dissect a great brief and a terrible one, then spend most of the meeting briefing Claude on your company's real tasks — with the class scoring outputs and iterating together.",
+       a:[
+        {t:"Anatomy of a great brief: goal, context, format, tone",
+         s:["Goal: define 'done' in one sentence before typing","Context: audience, background, constraints, what's at stake","Format: email, table, one-pager, script — always say it","Tone: how to describe your company's voice in 3 adjectives + 1 example"]},
+        {t:"Showing examples instead of explaining",
+         s:["Paste your best past email and say 'like this'","Before/after pairs: your raw draft vs. how you wish it sounded","Using competitor material as a 'not like this' example","One good example beats three paragraphs of instructions"]},
+        {t:"Iterating: pushing back until the output is right",
+         s:["The manager's vocabulary: tighter, warmer, more concrete, less salesy","Asking Claude to critique its own draft first","'Give me 3 versions' as a decision-making tool","Knowing when it's client-ready — the ship checklist"]},
+        {t:"Common briefing mistakes and how to spot them",
+         s:["Vague goals, missing audience, buried asks","Accepting draft #1 — the rookie tell","Overloading one message with five unrelated tasks","Starting a fresh chat when you should iterate in-thread"]}
+       ],
+       x:"Brief Claude on your company's first real task and iterate until it's client-ready.",
+       w:"A briefing checklist card — the management skill every department meeting builds on."},
+
+      {c:"M03", t:"Company HQ: onboarding Claude",
+       d:"Teach Claude your business so it answers like an insider from week one.",
+       f:"Onboarding day for your new workforce. We build your company's knowledge base live: everyone assembles their HQ Project during the meeting, loads real company knowledge, and tests it with insider questions.",
+       a:[
+        {t:"Claude Projects: what they are and why they change everything",
+         s:["A Project = a department office where Claude already knows the business","Standing knowledge vs. one-off chats: stop re-explaining yourself","What lives in a Project: files, instructions, ongoing conversations","The test: ask a question only an insider could answer"]},
+        {t:"Uploading company knowledge: products, prices, policies",
+         s:["The knowledge inventory: what documents describe your business?","Products and services, price lists, policies, FAQs, key clients","The 'about us' brief: history, values, what makes you different","Keeping it current: the monthly knowledge refresh habit"]},
+        {t:"Standing instructions: your brand voice and rules",
+         s:["Writing your voice guide: 3 adjectives, 2 example texts, 1 forbidden style","House rules: what Claude must always/never do for your company","Language, formality, sign-offs, terminology you insist on","Compliance basics: what never leaves the building"]},
+        {t:"One Project per department: HQ, marketing, HR, sales",
+         s:["HQ holds the shared truth; departments hold their specialty","What marketing's office needs vs. what HR's office needs","Avoiding knowledge drift between departments","Naming conventions so your company stays navigable"]}
+       ],
+       x:"Build your company HQ Project plus one department Project, loaded with real knowledge.",
+       w:"A working HQ that answers like an insider — the foundation every department is built on."},
+
+      {c:"M04", t:"The front desk: customer communication",
+       d:"Every customer touchpoint, handled in your brand voice.",
+       f:"Your first department hire. We train the front desk on real scenarios from participants' businesses: complaints, quotes, FAQs — then stress-test it with the class playing difficult customers.",
+       a:[
+        {t:"Complaint replies that keep the customer",
+         s:["The 4-part reply: acknowledge, own, resolve, invite back","De-escalation language: firm on facts, soft on people","When to compensate and when to hold the line","The reply you never send: handling abusive messages"]},
+        {t:"Quotes and proposals from bullet points",
+         s:["From 5 bullets to a professional quote in your format","Options pricing: good/better/best in one document","The follow-up sequence for quotes that went quiet","Templates per client type: new, returning, VIP"]},
+        {t:"An FAQ built from your real customer questions",
+         s:["Mining your inbox and chats for the questions that repeat","Writing answers once, in brand voice, at three lengths","The internal FAQ: answers your team gives consistently","Publishing: website, WhatsApp auto-text, printed one-pager"]},
+        {t:"One message adapted for email, WhatsApp and a phone script",
+         s:["Same content, three registers: formal, chat, spoken","WhatsApp etiquette: short, warm, emoji policy per brand","The phone script with branching: if they say X, respond Y","Consistency check: does it still sound like one company?"]}
+       ],
+       x:"Answer 3 real customer scenarios from your business, in your brand voice.",
+       w:"A staffed front desk: complaint playbook, quote template, FAQ v1, and a multi-channel voice."},
+
+      {c:"M05", t:"The marketing department",
+       d:"One idea in, a month of content out.",
+       f:"Content factory day. We take one real idea from each participant's business and industrialize it: calendar, posts, campaign copy — plus a competitor-positioning session to sharpen the message.",
+       a:[
+        {t:"Content calendar: from theme to schedule",
+         s:["Quarterly themes → monthly topics → weekly posts","The content mix: educate, entertain, sell — in what ratio","Batching: producing a month in one sitting","Realistic cadence: what you'll actually sustain"]},
+        {t:"Social posts, campaigns and landing-page copy",
+         s:["Platform-native writing: LinkedIn vs. Instagram vs. Facebook","Hooks that stop the scroll: 10 formulas that work","Campaign anatomy: teaser, launch, proof, last-call","Landing page structure: promise, proof, price, push"]},
+        {t:"Competitor research and positioning",
+         s:["Profiling 3 competitors: offer, price, message, weakness","The positioning sentence: for whom, what, unlike whom, why","Finding the gap: what nobody in your market is saying","Turning positioning into a tagline and an elevator pitch"]},
+        {t:"Keeping one consistent voice across everything",
+         s:["The voice guide from M03, now enforced in marketing","The consistency audit: 5 recent posts, one brand?","Voice drift: how it happens and how to catch it","Guest writers and freelancers: briefing them with your guide"]}
+       ],
+       x:"One idea → a month-long content calendar with the first week's posts ready to publish.",
+       w:"A staffed marketing department: calendar, a week of publish-ready posts, and a positioning sentence."},
+
+      {c:"M06", t:"The HR manager: hiring & managing workers",
+       d:"The people side of the business, prepared instead of improvised.",
+       f:"HR gets hired. We run a full hiring cycle on a real role from a participant's business — job description, rubric, CV screening, interview kit — then flip to managing: onboarding, 1-on-1s, and the hard conversations.",
+       a:[
+        {t:"Job descriptions and screening rubrics",
+         s:["From 'we need someone' to a role definition: outcomes, not tasks","Job ads that attract the right people and filter the wrong ones","The screening rubric: 5 criteria, weighted, before you see a single CV","Must-have vs. nice-to-have — deciding in advance"]},
+        {t:"CV screening and interview question sets",
+         s:["Screening a stack of CVs against your rubric in minutes","Red flags and green flags — and which are myths","Structured interview kits: same questions, comparable answers","Follow-up probes: getting past rehearsed answers"]},
+        {t:"Onboarding plans for new hires",
+         s:["The 30-60-90 plan: what success looks like at each mark","Week-one checklist: access, intros, first small win","The onboarding doc pack, generated from your HQ knowledge","Assigning a buddy and structuring the check-ins"]},
+        {t:"1-on-1s, performance reviews, and the hard conversations",
+         s:["The 1-on-1 agenda that isn't a status meeting","Writing balanced performance reviews from your rough notes","Preparing the hard conversation: script, objections, next steps","Practicing live: Claude plays the defensive employee"]}
+       ],
+       x:"Write a job description + screening rubric for a real role, then screen 3 sample CVs.",
+       w:"A staffed HR department: hiring kit for one real role and a manager's toolkit for the team you have."},
+
+      {c:"M07", t:"The analyst & researcher: numbers and markets",
+       d:"Decisions backed by data and research, not gut feeling alone.",
+       f:"Everyone brings one real file and one real decision they're facing. We interrogate the numbers, chart them, then send deep research after the decision — and end with a structured recommendation.",
+       a:[
+        {t:"Company numbers in plain language: budgets, sales, reports",
+         s:["Uploading spreadsheets and PDFs: what Claude can read","Plain questions: 'which product actually makes us money?'","Comparing periods: what changed, and does it matter?","Sanity checks: catching errors in your own reports"]},
+        {t:"Charts and executive summaries from raw files",
+         s:["The chart that tells the story vs. the chart that decorates","One-page executive summary: findings, numbers, recommendation","Board-ready: turning analysis into two slides","The monthly numbers ritual: same questions, every month"]},
+        {t:"Market, vendor and competitor research",
+         s:["Deep research missions: scoped, sourced, cited","Vendor comparison: criteria matrix before the sales calls","Market sizing on a budget of zero","Reading agent research critically: checking the citations"]},
+        {t:"Structured pros-and-cons before you commit",
+         s:["The decision brief: options, criteria, weights, scores","Devil's advocate round: the strongest case against your favorite","Risk column: what breaks if you're wrong?","The recommendation you can defend in one paragraph"]}
+       ],
+       x:"Produce a due-diligence brief on one real decision you're facing right now.",
+       w:"A staffed analyst desk: your numbers explained, your market researched, one real decision de-risked."},
+
+      {c:"M08", t:"The operations manager: SOPs & procedures",
+       d:"So the business runs the same without you in the room.",
+       f:"Documentation day — the least glamorous, highest-leverage meeting. Everyone extracts one process that lives only in their head and turns it into a written SOP, then we build the checklist-and-policy layer around it.",
+       a:[
+        {t:"Turning 'how we do things here' into written SOPs",
+         s:["The brain-dump method: talk it out messy, Claude structures it","SOP anatomy: purpose, trigger, steps, owner, exceptions","The 'new employee test': could a stranger follow this?","Versioning: keeping SOPs alive as things change"]},
+        {t:"Checklists and policies people actually follow",
+         s:["Checklist vs. SOP: when each one wins","The 7-item rule: why long checklists die","Policies in plain language: refunds, discounts, response times","Making it findable: the one place everything lives"]},
+        {t:"Summarizing and translating long documents",
+         s:["The 40-page document → 1-page brief pipeline","Translating documents while keeping terminology exact","Multi-document digests: 5 reports, one summary","'Explain this like I'm not a lawyer' — safely"]},
+        {t:"Preparing for contract reviews: key-point extraction",
+         s:["Extracting parties, obligations, dates, penalties, exit clauses","The risk-flag pass: unusual or one-sided terms surfaced","Comparing a contract against your standard terms","The question list for your (human) lawyer — prepared, not improvised"]}
+       ],
+       x:"Take one process that lives only in your head and turn it into a written SOP.",
+       w:"A staffed operations desk: one real SOP shipped, plus the templates to document everything else."},
+
+      {c:"M09", t:"The tools department: vibe coding",
+       d:"Your company builds its own software — by talking, not programming.",
+       f:"The meeting everyone remembers. After one jaw-drop demo, everyone builds a real working tool for their own company by describing it in plain language — and iterates it live. Not one line of code is written by a human.",
+       a:[
+        {t:"What vibe coding is: describing the tool, Claude writes everything",
+         s:["The concept: you're the product manager, Claude is the dev team","What's buildable in an hour: calculators, trackers, dashboards, forms","What's not: enterprise systems, mobile apps, anything with logins","The mindset shift: software as something you make, not buy"]},
+        {t:"Artifacts: calculators, dashboards, forms, mini-apps",
+         s:["Live build: a quote calculator with your real pricing logic","A client tracker with statuses and filters","A dashboard fed by your own numbers","Sharing tools: sending a working app to a colleague as a link"]},
+        {t:"Iterating on a tool with words",
+         s:["'Make the button bigger', 'add a total row', 'brand colors'","Feature requests one at a time: the iteration rhythm","When it breaks: describing the bug is enough","Knowing when to stop: v1 that works beats v3 that doesn't"]},
+        {t:"When a mini-tool beats a spreadsheet — and when it doesn't",
+         s:["Tools shine: repeated calculations, sharing with non-Excel people","Spreadsheets shine: heavy data, flexibility, everyone knows them","The hybrid: a tool for input, a spreadsheet for storage","The build-vs-buy question for small business software"]}
+       ],
+       x:"Build a working tool for your company (quote calculator, client tracker, ROI dashboard) — zero code written by you.",
+       w:"A staffed tools department: one real working tool, and the confidence to build the next five."},
+
+      {c:"M10", t:"The agent workforce: AI agents",
+       d:"From an assistant you talk to, to agents that go do the work.",
+       f:"The frontier meeting. We define agents in business terms, then everyone dispatches a real multi-step research mission for their company — and learns to audit the work that comes back like a manager, not a fan.",
+       a:[
+        {t:"What AI agents are — in plain business language",
+         s:["Assistant vs. agent: answering questions vs. completing missions","What a mission looks like: goal, steps, tools, deliverable","The employee analogy: agents are staff who work unsupervised","Honest limits: what agents still get wrong in 2026"]},
+        {t:"Claude's agent powers: deep research, browsing, connectors",
+         s:["Deep research: multi-source, cited reports from one brief","Web browsing: agents that read the live internet","Connectors: plugging into your email, calendar and drive","Writing a mission brief: scope, sources, format, deadline"]},
+        {t:"Multi-agent thinking: specialists that hand work to each other",
+         s:["The pipeline: researcher → analyst → writer, each a specialist","Why specialists beat one generalist mega-prompt","Handoff quality: what each agent passes to the next","Orchestrating from the CEO seat: you manage the pipeline"]},
+        {t:"Where agents fit your company — and where a human stays in the loop",
+         s:["Green zone: research, drafts, monitoring, summaries","Red zone: money, legal commitments, sensitive people decisions","The approval gate: agent proposes, human disposes","Auditing agent work: spot-checks, citations, common failure smells"]}
+       ],
+       x:"Send an agent on a real multi-step research mission for your business and audit its work.",
+       w:"An agent workforce charter: which missions run on agents, which stay human, and how you audit both."},
+
+      {c:"M11", t:"Business Lab: assembling your AI company",
+       d:"Everything built so far, wired together.",
+       f:"Pure workshop, no new material. The instructor works 1-on-1 with each founder while everyone wires their departments together, fills gaps, and rehearses the final presentation.",
+       a:[
+        {t:"Connecting the departments",
+         s:["The company map: HQ feeding front desk, marketing, HR, analyst, tools, agents","Handoffs between departments: marketing brief → front desk FAQ","Fixing knowledge drift: one truth, everywhere","The daily flow: how you'll actually run this company Monday morning"]},
+        {t:"Instructor deep-dive with each participant",
+         s:["1-on-1 review of every department built so far","Diagnosing the weakest department — and fixing it live","Advanced tricks tailored to your specific business"]},
+        {t:"Filling the gaps and polishing the flagship workflows",
+         s:["Choosing your 2 flagship workflows for demo day","Stress-testing with awkward real inputs","The polish pass: output quality from good to impressive"]},
+        {t:"Preparing the final presentation",
+         s:["The 10-minute structure: company, departments, live demo, results","Choosing the live demo that can't fail","Rehearsal round with peer feedback"]}
+       ],
+       x:"Assemble your AI company end-to-end and rehearse your presentation.",
+       w:"A fully wired AI company and a rehearsed presentation, ready for demo day.", m:"lab"},
+
+      {c:"M12", t:"Company presentation day",
+       d:"The finale: present the AI company you built.",
+       f:"Demo day. Each founder presents their AI company — org chart, departments, one live demo — followed by group feedback. We close with the takeaway playbook: how the company keeps running after the course ends.",
+       a:[
+        {t:"Each participant presents their AI company to the class",
+         s:["The 10-minute format: vision, org chart, department tour","Honest numbers: hours saved, outputs shipped, money impact","The 'before this course' vs. 'now' story"]},
+        {t:"Live demos: a department in action",
+         s:["One flagship workflow, live, on real inputs","The tools department shows its self-built software","Handling live-demo surprises like a pro"]},
+        {t:"Group feedback and cross-pollination",
+         s:["Structured feedback: one strength, one idea, one question","Stealing shamelessly: adopting classmates' best workflows","The class playbook: everyone's flagship workflows, documented and shared"]},
+        {t:"The takeaway playbook: keeping the company running",
+         s:["The weekly operating rhythm: 30 minutes of CEO maintenance","The monthly knowledge refresh: keeping HQ current","What to build next: your department roadmap for the next quarter","Where to get help after the course ends"]}
+       ],
+       x:"A 10-minute class presentation: the AI company I built — departments, demos, results.",
+       w:"A presented, working AI company — and a playbook to keep it running and growing.", m:"lab"}
+    ]
+  },
+  c: {
+    name: "Business on Autopilot",
+    tag: "12 meetings · focus: systems that run without you",
+    sessions: [
+      {c:"M01", t:"Day one: meet your new AI hire",
+       d:"What Claude can actually do for a business, and the delegation mindset.",
+       f:"We open with a 20-minute live show of real business tasks solved in front of the class — ending with a teaser: an automation answering an email at 2 AM. Then setup, and everyone clears one real task before leaving.",
+       a:[
+        {t:"What Claude is — and what it can and can't do",
+         s:["A plain-language explanation of how an AI assistant works","Where Claude shines: writing, analysis, research, structure","Where it fails: invented facts, stale data, judgment calls","The autopilot rule: automate the repeatable, keep judgment human"]},
+        {t:"Plans, setup, and a tour: chat, files, artifacts, research",
+         s:["Accounts and interface tour together in class","Free vs. Pro: what this course uses and when to upgrade","Files in, documents out: the basic workflow","A glimpse of the destination: the n8n automation we'll build by M09"]},
+        {t:"The delegation mindset: treat it like a talented new hire",
+         s:["Why 'chatting with a bot' undersells what's possible","The new-hire frame: capable, fast, zero context about you","Delegation vs. automation: first you delegate, then you systematize","What good instructions sound like — preview of M02"]},
+        {t:"Live demos on real business tasks",
+         s:["A complaint email answered in the owner's tone","A spreadsheet interrogated in plain language","A proposal from five bullet points","The 2 AM teaser: an automation drafting a reply while everyone sleeps"]}
+       ],
+       x:"Everyone clears one real task from their plate before the meeting ends.",
+       w:"A working account, your first completed task, and a picture of where autopilot ends up."},
+
+      {c:"M02", t:"The briefing skill: how to delegate to Claude",
+       d:"The foundation every automation will run on.",
+       f:"Short teach, long practice — with an autopilot twist: your briefs must eventually run unattended, so we practice writing instructions so precise they work on the first try, every time.",
+       a:[
+        {t:"Anatomy of a great brief: goal, context, format, tone",
+         s:["Goal: define 'done' in one sentence","Context: audience, background, constraints","Format: exactly what the output must look like","Tone: your voice, described with adjectives and one example"]},
+        {t:"Showing examples instead of explaining",
+         s:["Paste a past email you loved: 'like this'","Before/after pairs as training material","Edge-case examples: 'and if the client is angry, like THIS'","Why examples matter double for automation"]},
+        {t:"Iterating until the output is right",
+         s:["The feedback vocabulary: tighter, warmer, more direct","Asking Claude to critique its own draft","Three versions side by side as a decision tool","The ship checklist for client-facing output"]},
+        {t:"Briefs that work unattended — the automation mindset",
+         s:["The 3-in-a-row test: same brief, three right results, no edits","Removing ambiguity: every 'it depends' spelled out","Handling the unexpected: 'if unsure, flag for a human'","The brief as a spec: today's chat is next month's automation"]}
+       ],
+       x:"Write a brief so precise it produces the right result on the first try, three times in a row.",
+       w:"A briefing checklist tuned for automation — the spec-writing skill everything else runs on."},
+
+      {c:"M03", t:"The essentials power session: writing, documents & a vibe-coding taste",
+       d:"The everyday assistant skills, condensed.",
+       f:"A fast, dense production meeting: the assistant essentials other tracks spread over three meetings, compressed into one. Rotating stations, real outputs, and a vibe-coding finale everyone builds themselves.",
+       a:[
+        {t:"Emails and hard messages in your voice",
+         s:["Teaching Claude your voice with 3 past emails","Replies to complaints, pushy vendors and scope creep","The follow-up ladder: nudge → ask → last call","Saying no without burning the bridge"]},
+        {t:"Proposals and presentations from bullet points",
+         s:["Five bullets → a client-ready proposal","Structure that sells: problem, approach, price, next step","A deck outline with speaker notes from the same input","The cover email that gets it opened"]},
+        {t:"Vibe coding taste: a personal mini-tool built by describing it",
+         s:["The concept: describe it, Claude builds it, you refine it","Live build: a calculator or tracker for your business","Iterating in plain words: 'add a total, make it blue'","Why this matters for autopilot: tools become automation parts"]},
+        {t:"Reusable templates for your business",
+         s:["Spotting your weekly repeating documents","Template anatomy: fixed brief + a slot for today's input","Your starter library: 3 templates you'll actually use","Templates as automation seeds — they'll return in M09"]}
+       ],
+       x:"Produce a proposal + build one working mini-tool — zero code.",
+       w:"The full assistant toolkit in one meeting: voice, documents, templates, and a self-built tool."},
+
+      {c:"M04", t:"Your analyst & researcher",
+       d:"Numbers, documents and markets in plain language.",
+       f:"Everyone brings a real file. We interrogate it, chart it, summarize it — then send a research mission out. Along the way we flag every analysis that repeats monthly: those are automation candidates for M07.",
+       a:[
+        {t:"Spreadsheets and PDFs: ask questions, get answers",
+         s:["Uploading Excel, CSV, PDF: what Claude sees","Plain-language questions about your own numbers","Cross-checking two documents against each other","Contract skim: key terms, dates and risks extracted"]},
+        {t:"Charts and executive summaries from raw data",
+         s:["From raw table to the chart that tells the story","The one-page executive summary format","Spotting trends and outliers you'd have missed","The repeating report: if you make it monthly, mark it for autopilot"]},
+        {t:"Market and competitor research on demand",
+         s:["Deep research missions: scoped, sourced, cited","Competitor profiles: offer, pricing, positioning, weakness","Customer-review mining for product insight","Auditing agent research: check the citations"]}
+       ],
+       x:"Upload a real report → executive summary + 3 insights you didn't have.",
+       w:"Your numbers explained, your market mapped — and a first list of reports worth automating."},
+
+      {c:"M05", t:"Onboarding Claude: teach it your company",
+       d:"The brain your automations will run on.",
+       f:"Knowledge-base construction day. Everything an automation will ever answer comes from what we build here, so we assemble your company Project live, load it with real knowledge, and stress-test it with insider questions.",
+       a:[
+        {t:"Claude Projects: standing context and company knowledge",
+         s:["A Project = an office where Claude already knows your business","What lives inside: files, instructions, running conversations","The insider test: questions only an employee could answer","Why automations need this: unattended work needs standing truth"]},
+        {t:"Brand voice and standing instructions",
+         s:["The voice guide: 3 adjectives, 2 examples, 1 forbidden style","House rules: always/never lists for your company","Terminology you insist on, sign-offs, formality level","Guardrails for automation: 'if unsure, escalate to a human'"]},
+        {t:"Structuring knowledge so automations answer correctly",
+         s:["The knowledge inventory: products, prices, policies, FAQs","One source of truth: avoiding contradicting documents","Freshness: the monthly knowledge refresh ritual","Testing like QA: 10 tricky questions before anything goes live"]}
+       ],
+       x:"Build your company Project — the knowledge base every automation will use.",
+       w:"A tested company brain, ready to power both your chats and your future automations."},
+
+      {c:"M06", t:"Your chief of staff: email, meetings and time",
+       d:"Run the routine — and notice what repeats.",
+       f:"A double-purpose working session: run your real inbox and calendar with Claude today, while keeping a running list of everything that repeats — that list becomes the raw material for the automation track starting next meeting.",
+       a:[
+        {t:"Inbox triage and replies in your voice",
+         s:["The 4-bucket triage: now, later, delegate, archive","Batch-processing a real inbox live in class","Delicate replies: angry client, pushy vendor, awkward no","The daily 10-minute inbox ritual"]},
+        {t:"Meeting prep, summaries and follow-ups",
+         s:["Agendas in minutes from a goal and attendee list","Transcripts and messy notes → decisions, actions, owners","The follow-up email drafted before you leave the room","The meeting kit you'll reuse weekly"]},
+        {t:"Weekly planning and prioritization",
+         s:["The Sunday ritual: brain-dump in, prioritized week out","Top-3 priorities and the courage to cut","Time-blocking with realistic buffers","The delegation pass: what shouldn't be yours at all"]},
+        {t:"Spotting the tasks that repeat often enough to automate",
+         s:["The repetition log: everything you did twice this week","Frequency × time × annoyance = automation score","The classic suspects: intake, reports, follow-ups, approvals","Your shortlist — carried straight into M07"]}
+       ],
+       x:"Process a real day's inbox + list your 5 most repetitive weekly tasks.",
+       w:"A running chief-of-staff routine and a scored list of your top automation candidates."},
+
+      {c:"M07", t:"Automation thinking: map your repeating work",
+       d:"Before building anything: what's actually worth automating?",
+       f:"The strategy meeting of the automation track. No tools yet — we map every repeating flow in your business on paper, score them ruthlessly, and choose the three automations you'll actually build. Bad choices here waste the next four meetings; we take our time.",
+       a:[
+        {t:"The economics of automation: hours saved vs. effort to build",
+         s:["The automation equation: (hours/week saved × weeks) vs. build + maintain cost","Why the 5-minute daily task beats the 3-hour monthly one","Hidden costs: maintenance, edge cases, checking the output","The break-even test: does it pay for itself in a month?"]},
+        {t:"Mapping intake, reporting, follow-ups and approvals",
+         s:["The four automation families and how to recognize yours","Drawing a flow: trigger → steps → decision points → output","Finding the trigger: what event starts each flow?","Data in, data out: what each step actually needs"]},
+        {t:"Human-in-the-loop: where a person must approve",
+         s:["The red zones: money, commitments, sensitive relationships","Draft-for-approval vs. fully automatic: choosing per flow","Designing the approval moment: one click, full context","Escalation paths: what the system does when it's unsure"]},
+        {t:"Choosing your first three automations",
+         s:["Scoring your shortlist: impact, frequency, simplicity, risk","Rule one: the first automation must be easy and visible","One from each family if you can: intake, report, follow-up","Writing the one-line spec for each pick"]}
+       ],
+       x:"Draw the automation map of your business and shortlist the top 3 candidates.",
+       w:"An automation map of your whole business and three specs, ready to build.", m:"n8n"},
+
+      {c:"M08", t:"Meet n8n: your first automation, zero code",
+       d:"Fully visual — boxes and arrows, not code.",
+       f:"Tooling day. Accounts set up together, the canvas demystified, and then we build: by the end of the meeting every participant has a real automation triggered, executed and verified — however small.",
+       a:[
+        {t:"How n8n works: triggers, actions, connections",
+         s:["The canvas: every automation is boxes connected by arrows","Triggers: 'when an email arrives', 'every Monday 8 AM', 'when a form is submitted'","Actions: send, create, update, notify","Connections: how data flows from box to box"]},
+        {t:"Reading a workflow like a flowchart",
+         s:["Walking through 3 example workflows before building any","Following the data: what goes in, what comes out of each node","Spotting the decision points: IF-branches in plain sight","The vocabulary: node, execution, credential — that's all the jargon"]},
+        {t:"Setting up your account together in class",
+         s:["Free account creation, step by step, nobody left behind","Connecting your first service (email or sheets) safely","Credentials and permissions in plain language","The test button: running a workflow manually before trusting it"]},
+        {t:"First live workflow: a real trigger, a real result",
+         s:["Build together: form submission → formatted email notification","Watching an execution happen live, node by node","Reading the execution log when something misfires","Everyone adapts the pattern to their own business"]}
+       ],
+       x:"Build and run your first automation before the meeting ends.",
+       w:"A live n8n account and a real running automation — the fear of the tool gone for good.", m:"n8n"},
+
+      {c:"M09", t:"Claude + n8n: work that happens at 2 AM",
+       d:"Plugging Claude's brain into your automations.",
+       f:"The meeting the course is named after. We add the Claude node to n8n, load it with the briefs you perfected in M02, and ship an automation that produces real drafts unattended. We end by scheduling one to run overnight — and check its work next meeting.",
+       a:[
+        {t:"The Claude node: your briefs, running unattended",
+         s:["Adding Claude as a step inside any workflow","Pasting your M02 brief into the node — the payoff moment","Feeding it live data from previous nodes","Output handling: where the draft goes next"]},
+        {t:"Auto-drafted replies to incoming emails",
+         s:["Trigger: new email in a chosen inbox or label","Claude drafts a reply in your voice, using your company brain","Draft-for-approval: it lands in your drafts folder, you hit send","Filtering: which emails qualify, which skip the system"]},
+        {t:"Auto-summarized reports on a schedule",
+         s:["Trigger: every Monday 7 AM, fetch the numbers","Claude writes the exec summary you used to write by hand","Delivery: inbox, chat, or a running document","The M04 flag list comes home: your repeating reports, automated"]},
+        {t:"Auto-sorted and scored leads from forms",
+         s:["Trigger: form submission or new spreadsheet row","Claude scores the lead against your ideal-customer profile","Routing: hot leads ping you now, cold ones join the nurture list","The personalized first-touch draft, ready for approval"]}
+       ],
+       x:"Ship an automation that drafts something real for your business without you touching it.",
+       w:"Your first true autopilot: Claude working inside a system, producing drafts while you sleep.", m:"n8n"},
+
+      {c:"M10", t:"Advanced autopilot: AI agents in n8n",
+       d:"Automations that decide, not just execute.",
+       f:"The advanced session: from fixed pipelines to workflows that choose their own next step. We build a multi-step agent flow with a human approval gate — and talk honestly about where this power should and shouldn't be pointed.",
+       a:[
+        {t:"AI agent nodes: workflows that choose their next step",
+         s:["Fixed pipeline vs. agent: following a recipe vs. deciding the route","When agent flexibility helps — and when it just adds risk","Giving an agent tools: search, sheets, email as its hands","Setting boundaries: what the agent may and may not do"]},
+        {t:"Multi-step chains across the tools you already use",
+         s:["Sheets → Claude → email → messaging, in one flow","Data shaping between steps: making outputs feed inputs","Error tolerance: retries and fallbacks in plain settings","A worked example: inquiry → research → brief → notify"]},
+        {t:"Multi-agent patterns: specialist steps handing off work",
+         s:["The relay: researcher agent → writer agent → reviewer agent","Why specialists beat one do-everything mega-step","Designing the handoff: what each specialist passes on","Keeping the chain auditable: logs you can actually read"]},
+        {t:"Approval gates: keeping a human in the loop where it matters",
+         s:["The gate node: workflow pauses until a human clicks approve","Designing the approval message: full context, one decision","Timeouts and escalation: what happens if nobody responds","The audit trail: who approved what, when"]}
+       ],
+       x:"Build a multi-step agent workflow with a human approval gate.",
+       w:"An agent-powered workflow with real guardrails — autopilot with a pilot still in command.", m:"n8n"},
+
+      {c:"M11", t:"Business Lab I: automating your business",
+       d:"Deep dive into each participant's company.",
+       f:"Pure workshop. Everyone builds their single highest-value automation — the one from the M07 shortlist that saves the most hours — with 1-on-1 instructor time and tests against real data before leaving.",
+       a:[
+        {t:"Picking the one automation that saves the most hours per week",
+         s:["Revisiting the M07 shortlist with everything learned since","The final scoring: impact, simplicity, visibility","Writing the full spec: trigger, steps, brief, output, approval gate"]},
+        {t:"Building it with instructor guidance",
+         s:["Building in stages: trigger first, then one node at a time","1-on-1 instructor time for every participant","The pattern library: adapting M08–M10 patterns to your case","Documenting as you build — future-you will thank you"]},
+        {t:"Testing against real data from your business",
+         s:["The test set: 5 real past cases run through the system","Judging output quality like a manager, not a fan","Edge cases: the weird input that breaks it, found now not later","Go-live checklist: what must be true before it runs unattended"]}
+       ],
+       x:"Leave with your highest-value automation built and running.",
+       w:"Your flagship automation: built, tested on real data, and live.", m:"lab"},
+
+      {c:"M12", t:"Business Lab II + autopilot demo day",
+       d:"Polish, then present a system that works while you sleep.",
+       f:"First half: hardening — error handling and final polish with instructor feedback. Second half: demo day — every participant shows a live, running automation to the class and shares the numbers.",
+       a:[
+        {t:"Refining with instructor feedback",
+         s:["The quality pass: output from 'works' to 'impressive'","Tightening the Claude briefs inside each node","Trimming steps: simpler flows break less"]},
+        {t:"Error handling: what happens when things go wrong",
+         s:["Failure modes: service down, weird input, empty data","Notifications: the system tells you when it stumbles","Safe defaults: fail quiet, flag loud, never send garbage","The weekly 5-minute health check ritual"]},
+        {t:"Class presentations: live demos of running automations",
+         s:["The format: the problem, the flow, a live execution, the numbers","Hours-saved math presented honestly","Group feedback and idea theft, encouraged","The takeaway playbook: running and growing your autopilot after the course"]}
+       ],
+       x:"A class presentation: my business on autopilot — a live, working automation.",
+       w:"A hardened, presented, running system — and the playbook to keep expanding it.", m:"lab"}
+    ]
+  }
+};
+
+const syllabus = document.getElementById("syllabus");
+const buttons = document.querySelectorAll(".track");
+
+function render(key){
+  const t = TRACKS[key];
+  let html = `<div class="syllabus-head"><h3>${t.name}</h3><span class="tag">${t.tag}</span></div>`;
+  for (const s of t.sessions){
+    let mod = "";
+    if (s.m === "n8n") mod = `<span class="module-tag">n8n module</span>`;
+    if (s.m === "lab") mod = `<span class="module-tag lab">business lab</span>`;
+    const topics = s.a.map(topic => `
+      <div class="topic">
+        <div class="topic-title">${topic.t}</div>
+        <ul class="subs">${topic.s.map(li => `<li>${li}</li>`).join("")}</ul>
+      </div>`).join("");
+    html += `<div class="session">
+      <div class="s-code">${s.c}</div>
+      <div>
+        <h4>${s.t}${mod}</h4>
+        <p class="d">${s.d}</p>
+        <div class="flow"><b>In this meeting</b>${s.f}</div>
+        ${topics}
+        <div class="exercise"><b>Hands-on</b>${s.x}</div>
+        <div class="takeaway"><b>You leave with</b>${s.w}</div>
+      </div>
+    </div>`;
+  }
+  syllabus.innerHTML = html;
+}
+
+buttons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    buttons.forEach(b => b.setAttribute("aria-pressed","false"));
+    btn.setAttribute("aria-pressed","true");
+    render(btn.dataset.track);
+    document.getElementById("syllabus").scrollIntoView({behavior:"smooth", block:"start"});
+  });
+});
+
+render("b");
+</script>
+
+</body>
+</html>

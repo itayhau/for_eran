@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude for Business — Course Library &amp; Sources</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#17242d;
+    --ink-soft:#41525e;
+    --paper:#f3f5f4;
+    --card:#ffffff;
+    --line:#d8dedd;
+    --accent:#e8a13c;
+    --accent-deep:#b97817;
+    --teal:#237e70;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,sans-serif;
+    font-size:16px;
+    line-height:1.6;
+  }
+  .wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+
+  header{border-bottom:1px solid var(--line);background:var(--card)}
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--accent-deep);
+  }
+  header .wrap{padding:56px 24px 44px}
+  h1{
+    font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 118;
+    font-weight:850;font-size:clamp(34px,5.4vw,58px);
+    line-height:1.03;letter-spacing:-.015em;margin:14px 0 16px;
+  }
+  h1 .thin{font-weight:450;font-variation-settings:"wdth" 100;color:var(--ink-soft)}
+  .lede{max-width:640px;color:var(--ink-soft);font-size:17px}
+
+  section{padding:44px 0}
+  .sec-title{
+    font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 112;
+    font-weight:750;font-size:clamp(24px,3.4vw,32px);
+    letter-spacing:-.01em;margin-bottom:6px;
+  }
+  .sec-sub{color:var(--ink-soft);margin-bottom:26px;max-width:720px}
+
+  /* book card */
+  .book{
+    display:grid;grid-template-columns:190px 1fr;gap:26px;
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px clamp(20px,3.4vw,32px);margin-bottom:18px;
+  }
+  /* designed cover (stand-in for the publisher's cover art) */
+  .cover{
+    align-self:start;
+    aspect-ratio:2/3;width:100%;
+    border-radius:8px;position:relative;overflow:hidden;
+    display:flex;flex-direction:column;justify-content:space-between;
+    padding:16px 14px;box-shadow:0 10px 22px rgba(23,36,45,.16), inset 4px 0 0 rgba(0,0,0,.18);
+    color:#fff;
+  }
+  .cover .c-top{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+  .cover .c-title{
+    font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 112;
+    font-weight:850;font-size:19px;line-height:1.12;letter-spacing:-.01em;
+  }
+  .cover .c-author{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.06em;opacity:.9}
+  .cover.teal{background:linear-gradient(160deg,#237e70,#123f38)}
+  .cover.amber{background:linear-gradient(160deg,#e8a13c,#8a5810)}
+  .cover.ink{background:linear-gradient(160deg,#2c3f4c,#141f27)}
+  .cover.slate{background:linear-gradient(160deg,#41525e,#1d262c)}
+  .cover.moss{background:linear-gradient(160deg,#5b7d3f,#2c3f1d)}
+  .cover.rust{background:linear-gradient(160deg,#b06136,#5e2f17)}
+  .cover-note{
+    margin-top:8px;font-family:"IBM Plex Mono",monospace;font-size:10px;
+    color:var(--ink-soft);text-align:center;letter-spacing:.04em;
+  }
+
+  .book .head{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-bottom:4px}
+  .year{
+    font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:500;letter-spacing:.08em;
+    background:var(--ink);color:var(--paper);border-radius:999px;padding:2px 11px;
+  }
+  .book h3{
+    font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 110;
+    font-weight:800;font-size:21px;letter-spacing:-.01em;
+  }
+  .authors{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--teal);margin-bottom:2px}
+  .cred{
+    display:inline-block;margin-bottom:12px;
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+    background:#f8ecd7;color:var(--accent-deep);padding:2px 9px;border-radius:999px;
+  }
+  .cred.academic{background:#e2efec;color:var(--teal)}
+  .abstract{font-size:14.5px;color:var(--ink-soft);margin-bottom:12px}
+  .abstract b{color:var(--ink)}
+
+  .fit{
+    font-size:13.5px;color:var(--ink);
+    background:#fdf6e9;border:1px dashed var(--accent);border-radius:9px;
+    padding:9px 12px;margin-bottom:14px;
+  }
+  .fit b{
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--accent-deep);margin-right:8px;
+  }
+  .fit .m{
+    font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--teal);
+    background:#e2efec;border-radius:999px;padding:1px 8px;margin-left:4px;white-space:nowrap;
+  }
+
+  .btn{
+    display:inline-block;font-size:13.5px;font-weight:600;
+    font-family:"IBM Plex Mono",monospace;letter-spacing:.03em;
+    color:var(--paper);background:var(--ink);border-radius:999px;
+    padding:8px 18px;text-decoration:none;transition:transform .15s, box-shadow .15s;
+  }
+  .btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(23,36,45,.22)}
+  .btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+  .btn span{color:var(--accent)}
+
+  /* honesty panel */
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin-bottom:26px}
+  .panel h3{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 110;font-weight:750;font-size:18px;margin-bottom:10px}
+  .panel p{font-size:14.5px;color:var(--ink-soft)}
+  .panel p + p{margin-top:8px}
+  .panel b{color:var(--ink)}
+
+  footer{border-top:1px solid var(--line);background:var(--card);margin-top:20px}
+  footer .wrap{padding:34px 24px;display:flex;flex-wrap:wrap;gap:12px 30px;justify-content:space-between;align-items:center}
+  footer p{font-size:14px;color:var(--ink-soft)}
+  footer .mono{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-deep)}
+
+  @media (max-width:720px){
+    .book{grid-template-columns:1fr}
+    .cover{max-width:200px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Course library · reading &amp; sources · companion to proposal v2.1</div>
+    <h1>Claude for Business<br><span class="thin">the reading list behind the course</span></h1>
+    <p class="lede">Six books ground the program: two academically anchored foundations, two popular practitioner playbooks, and three Claude-specific Kindle guides used as tool-level companion material. Each entry lists year, abstract, how it maps to the course meetings, and a direct link.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section id="foundations">
+    <h2 class="sec-title">Academic &amp; institutional foundations</h2>
+    <p class="sec-sub">Books from university-affiliated authors and established publishers. These are the sources cited in the course proposal as its intellectual backbone.</p>
+
+    <!-- Co-Intelligence -->
+    <div class="book">
+      <div>
+        <div class="cover teal">
+          <div class="c-top">New York Times Bestseller</div>
+          <div class="c-title">Co-Intelligence: Living and Working with AI</div>
+          <div class="c-author">Ethan Mollick · Portfolio / Penguin</div>
+        </div>
+        <div class="cover-note">Designed stand-in — see the publisher's cover at the link</div>
+      </div>
+      <div>
+        <div class="head"><span class="year">2024</span><h3>Co-Intelligence: Living and Working with AI</h3></div>
+        <div class="authors">Ethan Mollick — Professor of Management, The Wharton School</div>
+        <span class="cred academic">Academic author · Major publisher · FT &amp; Economist Book of the Year</span>
+        <p class="abstract">An instant New York Times bestseller and the most widely read practical book on generative AI. Mollick argues that we should engage with AI as a <b>co-worker, co-teacher, and coach</b>: invite it to the table for real tasks, learn its jagged frontier of strengths and failures, and keep the human in charge of judgment. The book covers how large language models actually behave, the four rules of working with them, and what AI as coworker, expert, and companion means for jobs, management and education — all grounded in Mollick's research and classroom experiments at Wharton.</p>
+        <div class="fit"><b>Course fit</b>The intellectual foundation of the whole program. Its "treat AI as a talented co-worker" thesis is exactly the delegation mindset of <span class="m">M01</span>, its guidance on instructing and iterating with AI underpins the briefing skill of <span class="m">M02</span>, and its "jagged frontier" of AI strengths and failures is the quality-control lens used in every department meeting.</div>
+        <a class="btn" href="https://www.amazon.com/Co-Intelligence-Living-Working-Ethan-Mollick-ebook/dp/B0CM8TRWK3" target="_blank" rel="noopener">Kindle edition <span>→</span></a>
+      </div>
+    </div>
+
+    <!-- Agentic AI -->
+    <div class="book">
+      <div>
+        <div class="cover ink">
+          <div class="c-top">World Scientific · #1 Bestseller</div>
+          <div class="c-title">Agentic Artificial Intelligence</div>
+          <div class="c-author">Bornet · Wirtz · Davenport · De Cremer et al.</div>
+        </div>
+        <div class="cover-note">Designed stand-in — see the publisher's cover at the link</div>
+      </div>
+      <div>
+        <div class="head"><span class="year">2025</span><h3>Agentic Artificial Intelligence: Harnessing AI Agents to Reinvent Business, Work and Life</h3></div>
+        <div class="authors">Pascal Bornet, Jochen Wirtz (NUS), Thomas H. Davenport (Babson), David De Cremer (Northeastern) et al.</div>
+        <span class="cred academic">Professor co-authors · Academic publisher (World Scientific, with DOI)</span>
+        <p class="abstract">The strongest academically anchored source on the list: a 570-page, non-technical guide to <b>AI agents</b> co-written by leading business-school professors and automation practitioners. It explains what agents are, their real capabilities and limits, a step-by-step method for identifying high-value agent opportunities, how to build and govern agents safely (goals, guardrails, fallbacks, human oversight), and how to scale from a single agent to organization-wide transformation — illustrated with enterprise and startup case studies.</p>
+        <div class="fit"><b>Course fit</b>The direct reference for the agent workforce meeting <span class="m">M10</span> — assistant vs. agent, mission design, multi-agent handoffs, and human-in-the-loop governance all appear in the book. It also backs the automation-economics and approval-gate thinking of the Autopilot flavor <span class="m">C · M07–M10</span>.</div>
+        <a class="btn" href="https://www.amazon.com/Agentic-Artificial-Intelligence-Harnessing-Reinvent/dp/B0F1KKYX4T" target="_blank" rel="noopener">Amazon (print) <span>→</span></a>
+        &nbsp;
+        <a class="btn" href="https://www.amazon.co.uk/Agentic-Artificial-Intelligence-Harnessing-Reinvent-ebook/dp/B0F1DS36YC" target="_blank" rel="noopener">Kindle edition <span>→</span></a>
+      </div>
+    </div>
+
+    <!-- AI First -->
+    <div class="book">
+      <div>
+        <div class="cover amber">
+          <div class="c-top">Harvard Business Review Press</div>
+          <div class="c-title">AI First: The Playbook for a Future-Proof Business and Brand</div>
+          <div class="c-author">Adam Brotman &amp; Andy Sack</div>
+        </div>
+        <div class="cover-note">Designed stand-in — see the publisher's cover at the link</div>
+      </div>
+      <div>
+        <div class="head"><span class="year">2025</span><h3>AI First: The Playbook for a Future-Proof Business and Brand</h3></div>
+        <div class="authors">Adam Brotman (former Chief Digital Officer, Starbucks) &amp; Andy Sack (former adviser to Microsoft's CEO)</div>
+        <span class="cred academic">Harvard Business Review Press · Institutional publisher</span>
+        <p class="abstract">Built on the authors' interviews with Sam Altman, Bill Gates, Reid Hoffman and other leaders, this HBR Press title argues that businesses must become <b>AI-first organizations</b>. It covers the mindset shift, then the playbook: how to rethink the design of jobs when AI staffs part of the work, which skills to develop inside the organization, what customers will expect from AI-era brands, and how to land early, visible wins — with special depth on marketing and brand strategy.</p>
+        <div class="fit"><b>Course fit</b>The company-level frame of Flavor B: its "redesign jobs around AI" argument is the org-chart vision of <span class="m">M01</span>, its brand and marketing chapters back the marketing department <span class="m">M05</span>, and its early-wins playbook mirrors the flagship-workflow approach of the Business Lab <span class="m">M11–M12</span>.</div>
+        <a class="btn" href="https://www.amazon.com/AI-First-Playbook-Future-Proof-Business-ebook/dp/B0D8TZDR74" target="_blank" rel="noopener">Kindle edition <span>→</span></a>
+      </div>
+    </div>
+
+    <!-- AI-Driven Leader -->
+    <div class="book">
+      <div>
+        <div class="cover slate">
+          <div class="c-top">Practitioner Bestseller</div>
+          <div class="c-title">The AI-Driven Leader</div>
+          <div class="c-author">Geoff Woods</div>
+        </div>
+        <div class="cover-note">Designed stand-in — see the publisher's cover at the link</div>
+      </div>
+      <div>
+        <div class="head"><span class="year">2024</span><h3>The AI-Driven Leader: Harnessing AI to Make Faster, Smarter Decisions</h3></div>
+        <div class="authors">Geoff Woods — former Chief Growth Officer, Jindal Steel &amp; Power</div>
+        <span class="cred">Popular practitioner playbook · Prompt frameworks in every chapter</span>
+        <p class="abstract">A widely read leadership playbook on using AI as a <b>strategic thought partner</b> rather than a faster typist. Woods introduces the CRIT prompting framework — Context, Role, Interview, Task — and applies it chapter by chapter to real leadership work: escaping operational overwhelm, collapsing the time from data to decision, pressure-testing strategy, and multiplying the impact of every employee, with ready-to-use prompts throughout. Note: influential and praised by executives, but practitioner-published rather than academically reviewed.</p>
+        <div class="fit"><b>Course fit</b>Its CRIT framework is a published parallel to the goal–context–format–tone brief taught in <span class="m">M02</span>, its role-and-persona prompting matches the advanced delegation of <span class="m">A · M03</span>, and its decision-support chapters back the analyst desk and pros-and-cons brief of <span class="m">M07</span>.</div>
+        <a class="btn" href="https://www.amazon.com/AI-Driven-Leader-Harnessing-Smarter-Decisions-ebook/dp/B0CW1HKMZT" target="_blank" rel="noopener">Kindle edition <span>→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="claude-guides">
+    <h2 class="sec-title">Claude-specific companion guides</h2>
+    <p class="sec-sub">Self-published Kindle handbooks dedicated to Claude itself. Positioned in the proposal as <b>tool-level companion material</b> alongside Anthropic's official documentation — practical and current, but not academic sources.</p>
+
+    <!-- Claude AI Bible -->
+    <div class="book">
+      <div>
+        <div class="cover rust">
+          <div class="c-top">Kindle Series · 6 Books</div>
+          <div class="c-title">The Claude AI Bible 2026 (series)</div>
+          <div class="c-author">Thierry Gustin</div>
+        </div>
+        <div class="cover-note">Designed stand-in — see the publisher's cover at the link</div>
+      </div>
+      <div>
+        <div class="head"><span class="year">2025–2026</span><h3>The Claude AI Series / Claude AI Bible 2026</h3></div>
+        <div class="authors">Thierry Gustin — 6-book Kindle series</div>
+        <span class="cred">Self-published Kindle · Tool-specific · Frequently updated</span>
+        <p class="abstract">A practical series that treats Claude as a <b>personal strategist, research analyst, productivity engine and business copilot</b>, covering the whole Anthropic ecosystem including Claude Code and Projects. The business volume delivers 500 copy-paste prompts organized by real task — marketing, sales, email, content, operations, finance, hiring and customer service — plus 42 chained workflows that complete a whole job and editable templates aimed at small business owners and solopreneurs.</p>
+        <div class="fit"><b>Course fit</b>The closest published parallel to Flavor B: its task categories map one-to-one onto the course's departments — front desk <span class="m">M04</span>, marketing <span class="m">M05</span>, HR <span class="m">M06</span>, operations <span class="m">M08</span> — and its chained workflows preview the wired-together company of <span class="m">M11</span>.</div>
+        <a class="btn" href="https://www.amazon.com/dp/B0H46WRT2V" target="_blank" rel="noopener">Kindle series <span>→</span></a>
+      </div>
+    </div>
+
+    <!-- Tyler Mason -->
+    <div class="book">
+      <div>
+        <div class="cover moss">
+          <div class="c-top">Kindle Edition</div>
+          <div class="c-title">Claude AI: Writing, Programming &amp; Business Automation</div>
+          <div class="c-author">Tyler Mason</div>
+        </div>
+        <div class="cover-note">Designed stand-in — see the publisher's cover at the link</div>
+      </div>
+      <div>
+        <div class="head"><span class="year">2025</span><h3>Claude AI: Guide to Writing, Programming, and Business Automation</h3></div>
+        <div class="authors">Tyler Mason</div>
+        <span class="cred">Self-published Kindle · Tool-specific · Practitioner manual</span>
+        <p class="abstract">A hands-on technical manual — explicitly "not a primer on AI philosophy" — for getting real work out of Claude. It explains Claude's safety-first design and what it means for prompt strategy, then moves into buildable patterns: <b>plan-first workflows</b> for reliable structured output, writing assistants that keep a consistent brand voice, grounding answers in verifiable sources, and business automations that connect Claude to other systems, with reusable templates throughout.</p>
+        <div class="fit"><b>Course fit</b>Its plan-first, template-driven prompting supports the briefing and template work of <span class="m">M02–M03</span>, its brand-voice assistants match the front desk <span class="m">M04</span>, and its automation chapters bridge into the Claude + n8n meetings of the Autopilot flavor <span class="m">C · M09</span>.</div>
+        <a class="btn" href="https://www.amazon.com/Claude-PROGRAMMING-AUTOMATION-ANTHROPICS-INTELLIGENCE-ebook/dp/B0FYTGFDDG" target="_blank" rel="noopener">Kindle edition <span>→</span></a>
+      </div>
+    </div>
+
+    <!-- Mastery Playbook -->
+    <div class="book">
+      <div>
+        <div class="cover teal">
+          <div class="c-top">Kindle Edition</div>
+          <div class="c-title">The Claude AI Mastery Playbook</div>
+          <div class="c-author">Vi S</div>
+        </div>
+        <div class="cover-note">Designed stand-in — see the publisher's cover at the link</div>
+      </div>
+      <div>
+        <div class="head"><span class="year">2025</span><h3>The Claude AI Mastery Playbook: 150+ Expert Prompts to Transform Your Work, Writing, Business, Code &amp; Creative Life</h3></div>
+        <div class="authors">Vi S</div>
+        <span class="cred">Self-published Kindle · Tool-specific · Prompt library</span>
+        <p class="abstract">A prompt-by-prompt guide to Claude with <b>150+ ready-to-use prompts across nine professional categories</b> — work and productivity (email, meetings, reports, delegation, decision-making), writing and content (blog posts, newsletters, LinkedIn, sales copy), and business and marketing (customer personas, go-to-market plans, ad copy, competitive analysis). Each prompt comes with an explanation of why it works, built around a "5 Pillars of Prompt Engineering" framework, so readers learn to write their own rather than just copy.</p>
+        <div class="fit"><b>Course fit</b>A ready-made exercise bank for the course: its productivity prompts feed the inbox and meeting sessions <span class="m">A · M04–M05</span>, its content prompts feed the writing and marketing departments <span class="m">M05–M06</span>, and its "why each prompt works" explanations reinforce the briefing anatomy of <span class="m">M02</span>.</div>
+        <a class="btn" href="https://www.amazon.com/Claude-Mastery-Playbook-Transform-Anthropics-ebook/dp/B0GNJBH338" target="_blank" rel="noopener">Kindle edition <span>→</span></a>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>A note on covers and sources (for the proposal reviewers)</h3>
+      <p>The cover images above are <b>designed stand-ins in the course's own visual language</b>, not the publishers' cover art — book covers are copyrighted, so each card links to the retailer page where the official cover, reviews and previews can be seen.</p>
+      <p>Suggested citation framing: present <b>Co-Intelligence</b>, <b>Agentic Artificial Intelligence</b> and <b>AI First</b> as the academic and institutional foundations; <b>The AI-Driven Leader</b> as a popular practitioner reference; and the three Claude Kindle guides as tool-specific companion material alongside <b>Anthropic's official documentation</b> (docs.claude.com and anthropic.com), which remains the primary source for how the product itself works.</p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <p><span class="mono">Next step</span><br>Attach this library to the chosen flavor's syllabus — one recommended chapter per meeting.</p>
+    <p>Course library v1.0 · July 2026</p>
+  </div>
+</footer>
+
+</body>
+</html>

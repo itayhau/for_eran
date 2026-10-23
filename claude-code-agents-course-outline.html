@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The topics of the AI Agents with Claude Code course, with a short explanation of each.">
+<title>AI Agents with Claude Code — Course Topics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#17242d;
+    --ink-soft:#41525e;
+    --paper:#f3f5f4;
+    --card:#ffffff;
+    --line:#d8dedd;
+    --accent-text:#8a5508;
+    --teal:#237e70;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,sans-serif;
+    font-size:16px;
+    line-height:1.65;
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:0 24px}
+
+  header{border-bottom:1px solid var(--line);background:var(--card)}
+  header .wrap{padding:44px 24px 32px}
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--accent-text);
+  }
+  h1{
+    font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 118;
+    font-weight:850;font-size:clamp(30px,5vw,50px);
+    line-height:1.05;letter-spacing:-.015em;margin:14px 0 10px;
+  }
+  .sub{color:var(--ink-soft);font-size:17px}
+
+  main.wrap{padding-top:34px;padding-bottom:8px}
+  .topic{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px clamp(20px,4vw,32px) 24px;margin-bottom:18px;
+  }
+  .topic h2{
+    display:flex;align-items:baseline;gap:14px;
+    font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 108;
+    font-weight:750;font-size:clamp(20px,2.8vw,25px);line-height:1.25;letter-spacing:-.005em;
+  }
+  .topic h2 .n{
+    flex:none;font-family:"IBM Plex Mono",monospace;font-size:14px;font-weight:500;
+    letter-spacing:.04em;color:var(--accent-text);
+  }
+  .topic ul{list-style:none;margin-top:16px;display:grid;gap:15px}
+  .topic li{position:relative;padding-left:22px}
+  .topic li::before{
+    content:"";position:absolute;left:4px;top:.68em;width:7px;height:7px;border-radius:50%;background:var(--teal);
+  }
+  .topic li b{display:block;font-weight:600;font-size:16.5px;line-height:1.4}
+  .topic li span{display:block;margin-top:2px;color:var(--ink-soft);font-size:15px;line-height:1.55}
+
+  footer{border-top:1px solid var(--line);background:var(--card);margin-top:26px}
+  footer .wrap{padding:24px}
+  footer p{font-size:14px;color:var(--ink-soft)}
+
+  @media (max-width:480px){
+    .wrap{padding:0 16px}
+    header .wrap{padding:34px 16px 26px}
+    footer .wrap{padding:20px 16px}
+  }
+  @media print{
+    body{background:#fff;font-size:12px}
+    header,footer{border:0}
+    header .wrap{padding:16px 24px 8px}
+    main.wrap{padding-top:8px}
+    .topic{border:0;border-bottom:1px solid var(--line);border-radius:0;padding:12px 0;margin:0;break-inside:avoid}
+    .topic li span{font-size:12px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Course topics</div>
+    <h1>AI Agents with Claude Code</h1>
+    <p class="sub">Lessons 2–12: ten topic lessons after Lecture 1 (lesson 1), then demo day.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="topic">
+    <h2><span class="n">Lesson 2</span>From chatbot to agent</h2>
+    <ul>
+      <li><b>Chat vs workflow vs agent</b><span>What an AI agent really is, how it differs from a chat window or a fixed automation, and when each one is the right tool.</span></li>
+      <li><b>Opportunity audit</b><span>Students score their own tasks to find where automation pays off, and which work must stay human: money, legal commitments, sensitive people decisions.</span></li>
+      <li><b>The Claude Code cockpit</b><span>A first tour of Claude Code: how it works with files, what the permission modes mean, and how to keep it safely inside one project folder.</span></li>
+      <li><b>Your first agent: version 0</b><span>Turn one real job into written instructions and run a first version on real samples. What goes wrong becomes the work of the next lesson.</span></li>
+    </ul>
+  </section>
+
+  <section class="topic">
+    <h2><span class="n">Lesson 3</span>One agent, one job</h2>
+    <ul>
+      <li><b>Anatomy of strong instructions</b><span>What a good job description for an agent contains: role, audience, steps, decision rules, tone, output format, examples, and what to do when unsure.</span></li>
+      <li><b>CLAUDE.md vs Skills</b><span>Standing orders the agent always follows versus reusable playbooks it loads only when needed, and how students build their first skill.</span></li>
+      <li><b>Knowledge files and memory</b><span>Give the agent one source of truth (prices, policies, FAQs) and, for assistants, a memory of what matters between sessions.</span></li>
+      <li><b>Scenario drills</b><span>Run the agent on realistic, awkward cases, grade the answers and fix the instructions. This training loop is what makes an agent reliable.</span></li>
+    </ul>
+  </section>
+
+  <section class="topic">
+    <h2><span class="n">Lesson 4</span>Tools, connectors &amp; MCP: your personal chief of staff</h2>
+    <ul>
+      <li><b>Tools, connectors and MCP</b><span>How agents act on real systems such as Gmail, Calendar, Drive or a spreadsheet, through a common “plug” called MCP, explained without jargon.</span></li>
+      <li><b>Safe access</b><span>Start read-only, draft instead of send, use test accounts, and learn the “lethal trifecta”: private data, untrusted content and a way to send data out.</span></li>
+      <li><b>Build your chief of staff</b><span>A hands-on morning-brief assistant: today's agenda, clashes, priority emails, draft replies and meeting prep.</span></li>
+      <li><b>Cowork or Claude Code</b><span>Claude's no-code desktop agent next to Claude Code: what each does well and when to use which.</span></li>
+    </ul>
+  </section>
+
+  <section class="topic">
+    <h2><span class="n">Lesson 5</span>Agent teams &amp; hard rules</h2>
+    <ul>
+      <li><b>Why teams</b><span>When one agent is not enough, and five simple ways agents can work together: assembly line, dispatcher, committee, manager with specialists, writer with editor.</span></li>
+      <li><b>Subagents</b><span>Split a job into specialist roles, each with its own instructions and tools, and read what each one actually did.</span></li>
+      <li><b>Hooks</b><span>Rules that are enforced automatically, such as “ask before sending anything” or “log every action”. A prompt only asks; a hook enforces.</span></li>
+      <li><b>Plugins</b><span>Bundle skills, subagents and hooks into one package you can share, and why you read a plugin before installing it.</span></li>
+    </ul>
+  </section>
+
+  <section class="topic">
+    <h2><span class="n">Lesson 6</span>Prove it works</h2>
+    <ul>
+      <li><b>How agents fail</b><span>The common failure modes: invented facts or numbers, ignored rules, misused tools, over-confidence, and drift after edits.</span></li>
+      <li><b>Eval sets</b><span>A written set of test scenarios (must-pass, tricky and adversarial) with expected results, run again after every change.</span></li>
+      <li><b>Fix until it passes</b><span>Find the failures, fix the instructions or rules, rerun, and track the pass rate from the first version to the third.</span></li>
+      <li><b>“Break my agent” and the cost review</b><span>Classmates try to break each other's agents; then choose the right model for each step and check what a run costs.</span></li>
+    </ul>
+  </section>
+
+  <section class="topic">
+    <h2><span class="n">Lesson 7</span>Triggers, schedules, n8n &amp; approval gates</h2>
+    <ul>
+      <li><b>Triggers and engines</b><span>How an agent starts by itself (a schedule, a form, a message, an email) and the main engines for it: Cowork and Desktop schedules, Claude's cloud scheduled tasks, and n8n.</span></li>
+      <li><b>n8n bootcamp</b><span>A hands-on start with n8n, a visual automation tool: triggers, actions, credentials, and a first flow that calls Claude.</span></li>
+      <li><b>An email agent on a schedule</b><span>An agent that checks the inbox on a schedule, sorts new mail and saves draft replies, with a person approving every reply.</span></li>
+      <li><b>Approval gates and the autopilot ladder</b><span>Decide per task how much freedom the agent gets: draft only, approve then act, act then report, or fully autonomous.</span></li>
+      <li><b>Failure handling and alerts</b><span>Plan for the day something breaks: error alerts, retries, and a clear answer to “what happens when it fails?”</span></li>
+    </ul>
+  </section>
+
+  <section class="topic">
+    <h2><span class="n">Lesson 8</span>The front desk: WhatsApp &amp; Telegram</h2>
+    <ul>
+      <li><b>Channel architecture</b><span>How a message travels from a chat channel to the agent and back, with knowledge, tools, a hand-off to a human, and a log.</span></li>
+      <li><b>WhatsApp policy and privacy</b><span>What WhatsApp allows for business bots, how Israeli privacy rules affect customer messages, and why the bot should say it is an AI (not legal advice).</span></li>
+      <li><b>Build the front desk</b><span>A customer-service agent built on Telegram first (quick to set up), then connected to WhatsApp using a test number.</span></li>
+      <li><b>Live test</b><span>Classmates play customers with scenario cards: price questions, complaints, off-topic requests, injection attempts, slang.</span></li>
+    </ul>
+  </section>
+
+  <section class="topic">
+    <h2><span class="n">Lesson 9</span>Social, content &amp; lead engines</h2>
+    <ul>
+      <li><b>The content engine</b><span>From an idea to a content calendar and drafted posts, with a person approving everything before it goes public.</span></li>
+      <li><b>Brand voice and the writer–editor pair</b><span>Teach the agent your voice, then pair a writer agent with an editor agent that checks tone and facts.</span></li>
+      <li><b>Lead engine and listening</b><span>Score incoming leads and draft follow-ups; read comments and suggest replies. A person approves every outgoing message.</span></li>
+      <li><b>Platform rules and the weekly report</b><span>What the platforms allow (no fake engagement, no scraping, disclose AI where required) and a small agent that summarizes the week.</span></li>
+    </ul>
+  </section>
+
+  <section class="topic">
+    <h2><span class="n">Lesson 10</span>Security &amp; safe autonomy</h2>
+    <ul>
+      <li><b>The five threats to an agent</b><span>Prompt injection, data leakage, excessive agency, leaked secrets and untrusted plugins or tools, with real-world examples.</span></li>
+      <li><b>Red-team lab</b><span>Attack your own agent with poisoned emails, PDFs, web pages and chat messages, then patch what breaks.</span></li>
+      <li><b>Hardening</b><span>Apply a 12-point safety checklist and record each agent's owner, purpose, data, permissions and approvals.</span></li>
+      <li><b>Incident drill</b><span>Practice the response to a leaked key: pause, revoke, read the logs, fix, test and resume.</span></li>
+    </ul>
+  </section>
+
+  <section class="topic">
+    <h2><span class="n">Lesson 11</span>Go live 24/7 in the cloud</h2>
+    <ul>
+      <li><b>Where should my agent live?</b><span>The options for running an agent without your laptop: Claude's cloud schedules, n8n, an always-on machine, or Anthropic's hosted agents.</span></li>
+      <li><b>GitHub in 15 minutes</b><span>A free GitHub account and a private folder in the cloud: the agent's home, which Claude's cloud tasks need, plus a saved version history.</span></li>
+      <li><b>The 24/7 checklist</b><span>What a reliable agent needs: safe secrets, alerts, spend caps, retries and a version history.</span></li>
+      <li><b>Launch lab</b><span>Deploy your agent (for example an email agent that runs hourly in the cloud), break it on purpose, measure the cost per run and write a one-page runbook.</span></li>
+      <li><b>Demo prep</b><span>Prepare the story and the numbers (hours saved, pass rate, cost, return on investment) for demo day.</span></li>
+    </ul>
+  </section>
+
+  <section class="topic">
+    <h2><span class="n">Lesson 12</span>Demo day</h2>
+    <ul>
+      <li><b>Format and rubric</b><span>How the day runs and what the panel looks for: a live agent, evidence of quality, safety, business value and a clear story.</span></li>
+      <li><b>Live demos</b><span>Each student pitches for 6 minutes, demonstrates live for 3 and answers questions for 2.</span></li>
+      <li><b>Awards, feedback and what comes next</b><span>Peer feedback, awards and certificates, plus next steps for keeping an agent healthy and growing.</span></li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Topics are a proposal and may change as the plan is reviewed.</p>
+  </div>
+</footer>
+
+</body>
+</html>
